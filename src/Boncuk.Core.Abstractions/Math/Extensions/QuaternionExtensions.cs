@@ -19,6 +19,10 @@ public static class QuaternionExtensions
     
     public static Quaternion Normalize(this Quaternion source)
     {
-        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        var length = source.Length();
         return new (source.X / length, source.Y / length, source.Z / length, source.W / length);
-    }}
+    }
+    
+    public static float Length(this Quaternion source)
+        => (float) System.Math.Sqrt(source.Dot(source));
+}

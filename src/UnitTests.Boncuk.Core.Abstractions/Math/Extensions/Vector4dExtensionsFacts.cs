@@ -123,5 +123,18 @@ public class Vector4dExtensionsFacts
         Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.Z);
         Assert.Equal(sut.W / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.W);
     }
+    
+    [Fact]
+    public void Calculates_length_of_vector()
+    {
+        // Given
+        var sut = new Vector4d(5F, 7F, 9F, 11F);
+        
+        // When
+        var actual = sut.Length();
+
+        // Then
+        Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual);
+    }
 
 }

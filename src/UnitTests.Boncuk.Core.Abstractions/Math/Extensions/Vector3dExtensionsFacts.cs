@@ -135,5 +135,18 @@ public class Vector3dExtensionsFacts
         Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Y);
         Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Z);
     }
+    
+    [Fact]
+    public void Calculates_length_of_vector()
+    {
+        // Given
+        var sut = new Vector3d(5F, 7F, 9F);
+        
+        // When
+        var actual = sut.Length();
+
+        // Then
+        Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual);
+    }
 
 }

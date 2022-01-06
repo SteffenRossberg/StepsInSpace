@@ -24,7 +24,10 @@ public static class Vector3dExtensions
     
     public static Vector3d Normalize(this Vector3d source)
     {
-        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        var length = source.Length();
         return new (source.X / length, source.Y / length, source.Z / length);
     }
+
+    public static float Length(this Vector3d source)
+        => (float) System.Math.Sqrt(source.Dot(source));
 }

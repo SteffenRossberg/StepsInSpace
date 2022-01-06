@@ -21,7 +21,10 @@ public static class Vector2dExtensions
     
     public static Vector2d Normalize(this Vector2d source)
     {
-        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        var length = source.Length();
         return new (source.X / length, source.Y / length);
     }
+
+    public static float Length(this Vector2d source)
+        => (float) System.Math.Sqrt(source.Dot(source));
 }

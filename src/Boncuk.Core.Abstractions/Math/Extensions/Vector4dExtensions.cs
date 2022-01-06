@@ -19,7 +19,10 @@ public static class Vector4dExtensions
     
     public static Vector4d Normalize(this Vector4d source)
     {
-        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        var length = source.Length();
         return new (source.X / length, source.Y / length, source.Z / length, source.W / length);
     }
+
+    public static float Length(this Vector4d source)
+        => (float) System.Math.Sqrt(source.Dot(source));
 }
