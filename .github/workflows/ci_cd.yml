@@ -18,8 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore src/Boncuk.sln
+      working-directory: ./src
+      run: dotnet restore Boncuk.sln
     - name: Build
-      run: dotnet build src/Boncuk.sln --no-restore
+      working-directory: ./src
+      run: dotnet build Boncuk.sln --no-restore
     - name: Test
-      run: dotnet test src/Boncuk.sln --no-build --verbosity normal
+      working-directory: ./src
+      run: dotnet test Boncuk.sln --no-build --verbosity normal
