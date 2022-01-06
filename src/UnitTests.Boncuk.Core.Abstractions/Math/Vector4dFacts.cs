@@ -24,4 +24,64 @@ public class Vector4dFacts
         Assert.Equal(z, sut.Z);
         Assert.Equal(w, sut.W);
     }
+        
+    [Fact]
+    public void Returns_unit_x()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.UnitX;
+        
+        // Then
+        Assert.Equal(1.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }
+
+    [Fact]
+    public void Returns_unit_y()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.UnitY;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(1.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }
+    
+    [Fact]
+    public void Returns_unit_z()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.UnitZ;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(1.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }    
+    
+    [Fact]
+    public void Returns_unit_w()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.UnitW;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(1.0F, sut.W);
+    }
 }
