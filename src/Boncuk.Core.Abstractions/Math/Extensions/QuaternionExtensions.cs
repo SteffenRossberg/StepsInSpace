@@ -1,0 +1,54 @@
+using System.Runtime.CompilerServices;
+
+namespace Boncuk.Core.Abstractions.Math.Extensions;
+
+public static class QuaternionExtensions
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Add(this Quaternion left, Quaternion right)
+        => new (left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Add(this Quaternion left, float value)
+        => new (left.X + value, left.Y + value, left.Z + value, left.W + value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Subtract(this Quaternion left, Quaternion right)
+        => new (left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Subtract(this Quaternion left, float value)
+        => new (left.X - value, left.Y - value, left.Z - value, left.W - value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Multiply(this Quaternion left, Quaternion right)
+        => new (left.X * right.X, left.Y * right.Y, left.Z * right.Z, left.W * right.W);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Multiply(this Quaternion left, float value)
+        => new (left.X * value, left.Y * value, left.Z * value, left.W * value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Divide(this Quaternion left, Quaternion right)
+        => new (left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Divide(this Quaternion left, float value)
+        => new (left.X / value, left.Y / value, left.Z / value, left.W / value);
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static float Dot(this Quaternion left, Quaternion right)
+        => left.X * right.X + left.Y * right.Y + left.Z * right.Z + left.W * right.W;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Normalize(this Quaternion source)
+        => source.Divide(source.Length());
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static float Length(this Quaternion source)
+        => (float) System.Math.Sqrt(source.SquaredLength());
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static float SquaredLength(this Quaternion source)
+        => source.Dot(source);
+}
