@@ -126,5 +126,18 @@ public class Vector2dExtensionsFacts
         // Then
         Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual);
     }
+    
+    [Fact]
+    public void Calculates_squared_length_of_vector()
+    {
+        // Given
+        var sut = new Vector2d(5F, 7F);
+        
+        // When
+        var actual = sut.SquaredLength();
+
+        // Then
+        Assert.Equal(sut.X * sut.X + sut.Y * sut.Y, actual);
+    }
 
 }

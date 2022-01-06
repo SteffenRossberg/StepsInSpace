@@ -136,5 +136,18 @@ public class QuaternionExtensionsFacts
         // Then
         Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual);
     }
+    
+    [Fact]
+    public void Calculates_squared_length_of_quaternion()
+    {
+        // Given
+        var sut = new Quaternion(5F, 7F, 9F, 11F);
+        
+        // When
+        var actual = sut.SquaredLength();
+
+        // Then
+        Assert.Equal(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, actual);
+    }
 
 }

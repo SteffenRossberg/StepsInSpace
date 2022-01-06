@@ -24,5 +24,8 @@ public static class Vector4dExtensions
     }
 
     public static float Length(this Vector4d source)
-        => (float) System.Math.Sqrt(source.Dot(source));
+        => (float) System.Math.Sqrt(source.SquaredLength());
+
+    public static float SquaredLength(this Vector4d source)
+        => source.Dot(source);
 }

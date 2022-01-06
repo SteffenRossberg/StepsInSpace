@@ -22,7 +22,10 @@ public static class QuaternionExtensions
         var length = source.Length();
         return new (source.X / length, source.Y / length, source.Z / length, source.W / length);
     }
-    
+
     public static float Length(this Quaternion source)
-        => (float) System.Math.Sqrt(source.Dot(source));
+        => (float) System.Math.Sqrt(source.SquaredLength());
+
+    public static float SquaredLength(this Quaternion source)
+        => source.Dot(source);
 }

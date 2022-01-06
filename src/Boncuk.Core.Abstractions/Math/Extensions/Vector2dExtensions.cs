@@ -26,5 +26,8 @@ public static class Vector2dExtensions
     }
 
     public static float Length(this Vector2d source)
-        => (float) System.Math.Sqrt(source.Dot(source));
+        => (float) System.Math.Sqrt(source.SquaredLength());
+
+    public static float SquaredLength(this Vector2d source)
+        => source.Dot(source);
 }
