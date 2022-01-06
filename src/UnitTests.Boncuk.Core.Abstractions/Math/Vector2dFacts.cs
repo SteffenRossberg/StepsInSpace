@@ -1,7 +1,7 @@
 using Boncuk.Core.Abstractions.Math;
 using Xunit;
 
-namespace UnitTests.Boncuk.Core.Abstractions;
+namespace UnitTests.Boncuk.Core.Abstractions.Math;
 
 public class Vector2dFacts
 {
