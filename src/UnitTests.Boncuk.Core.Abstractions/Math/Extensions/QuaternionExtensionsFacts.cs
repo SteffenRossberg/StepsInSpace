@@ -107,5 +107,21 @@ public class QuaternionExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+        
+    [Fact]
+    public void Normalizes_quaternion()
+    {
+        // Given
+        var sut = new Quaternion(5F, 7F, 9F, 11F);
+        
+        // When
+        var actual = sut.Normalize();
+
+        // Then
+        Assert.Equal(sut.X / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.X);
+        Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.Y);
+        Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.Z);
+        Assert.Equal(sut.W / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.W);
+    }
 
 }

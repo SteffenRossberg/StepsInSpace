@@ -21,4 +21,10 @@ public static class Vector3dExtensions
         => new (left.Y * right.Z - left.Z * right.Y,
             left.Z * right.X - left.X * right.Z,
             left.X * right.Y - left.Y * right.X);
+    
+    public static Vector3d Normalize(this Vector3d source)
+    {
+        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        return new (source.X / length, source.Y / length, source.Z / length);
+    }
 }

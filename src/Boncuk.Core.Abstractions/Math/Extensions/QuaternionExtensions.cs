@@ -16,4 +16,9 @@ public static class QuaternionExtensions
     
     public static float Dot(this Quaternion left, Quaternion right)
         => left.X * right.X + left.Y * right.Y + left.Z * right.Z + left.W * right.W;
-}
+    
+    public static Quaternion Normalize(this Quaternion source)
+    {
+        var length = (float) System.Math.Pow(source.Dot(source), 0.5);
+        return new (source.X / length, source.Y / length, source.Z / length, source.W / length);
+    }}

@@ -120,5 +120,20 @@ public class Vector3dExtensionsFacts
         Assert.Equal(expectedY, actual.Y);
         Assert.Equal(expectedZ, actual.Z);
     }
+    
+    [Fact]
+    public void Normalizes_vector()
+    {
+        // Given
+        var sut = new Vector3d(5F, 7F, 9F);
+        
+        // When
+        var actual = sut.Normalize();
+
+        // Then
+        Assert.Equal(sut.X / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.X);
+        Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Y);
+        Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Z);
+    }
 
 }

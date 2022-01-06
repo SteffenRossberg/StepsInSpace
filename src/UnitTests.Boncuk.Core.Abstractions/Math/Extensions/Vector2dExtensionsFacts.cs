@@ -99,4 +99,19 @@ public class Vector2dExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+    
+    [Fact]
+    public void Normalizes_vector()
+    {
+        // Given
+        var sut = new Vector2d(5F, 7F);
+        
+        // When
+        var actual = sut.Normalize();
+
+        // Then
+        Assert.Equal(sut.X / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual.X);
+        Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual.Y);
+    }
+
 }
