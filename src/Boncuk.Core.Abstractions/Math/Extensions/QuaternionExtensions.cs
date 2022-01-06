@@ -5,6 +5,9 @@ public static class QuaternionExtensions
     public static Quaternion Add(this Quaternion left, Quaternion right)
         => new (left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
 
+    public static Quaternion Add(this Quaternion left, float value)
+        => new (left.X + value, left.Y + value, left.Z + value, left.W + value);
+
     public static Quaternion Subtract(this Quaternion left, Quaternion right)
         => new (left.X - right.X, left.Y - right.Y, left.Z - right.Z, left.W - right.W);
 

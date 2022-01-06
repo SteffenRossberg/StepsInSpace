@@ -140,4 +140,19 @@ public class Vector2dExtensionsFacts
         Assert.Equal(sut.X * sut.X + sut.Y * sut.Y, actual);
     }
 
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Adds_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Add(value);
+
+        // Then
+        Assert.Equal(x + value, actual.X);
+        Assert.Equal(y + value, actual.Y);
+    }
 }
