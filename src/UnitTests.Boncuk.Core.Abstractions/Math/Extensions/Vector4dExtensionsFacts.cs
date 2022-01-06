@@ -123,5 +123,103 @@ public class Vector4dExtensionsFacts
         Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.Z);
         Assert.Equal(sut.W / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual.W);
     }
+    
+    [Fact]
+    public void Calculates_length_of_vector()
+    {
+        // Given
+        var sut = new Vector4d(5F, 7F, 9F, 11F);
+        
+        // When
+        var actual = sut.Length();
+
+        // Then
+        Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, 0.5F), actual);
+    }
+    
+    [Fact]
+    public void Calculates_squared_length_of_vector()
+    {
+        // Given
+        var sut = new Vector4d(5F, 7F, 9F, 11F);
+        
+        // When
+        var actual = sut.SquaredLength();
+
+        // Then
+        Assert.Equal(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z + sut.W * sut.W, actual);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F, 6F)]
+    [InlineData(-2F, -3F, -4F, -5F, 6F)]
+    public void Adds_number(float x, float y, float z, float w, float value)
+    {
+        // Given
+        var sut = new Vector4d(x, y, z, w);
+        
+        // When
+        var actual = sut.Add(value);
+
+        // Then
+        Assert.Equal(x + value, actual.X);
+        Assert.Equal(y + value, actual.Y);
+        Assert.Equal(z + value, actual.Z);
+        Assert.Equal(w + value, actual.W);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F, 6F)]
+    [InlineData(-2F, -3F, -4F, -5F, 6F)]
+    public void Subtracts_number(float x, float y, float z, float w, float value)
+    {
+        // Given
+        var sut = new Vector4d(x, y, z, w);
+        
+        // When
+        var actual = sut.Subtract(value);
+
+        // Then
+        Assert.Equal(x - value, actual.X);
+        Assert.Equal(y - value, actual.Y);
+        Assert.Equal(z - value, actual.Z);
+        Assert.Equal(w - value, actual.W);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F, 6F)]
+    [InlineData(-2F, -3F, -4F, -5F, 6F)]
+    public void Multiplies_number(float x, float y, float z, float w, float value)
+    {
+        // Given
+        var sut = new Vector4d(x, y, z, w);
+        
+        // When
+        var actual = sut.Multiply(value);
+
+        // Then
+        Assert.Equal(x * value, actual.X);
+        Assert.Equal(y * value, actual.Y);
+        Assert.Equal(z * value, actual.Z);
+        Assert.Equal(w * value, actual.W);
+    }
+    
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F, 6F)]
+    [InlineData(-2F, -3F, -4F, -5F, 6F)]
+    public void Divides_number(float x, float y, float z, float w, float value)
+    {
+        // Given
+        var sut = new Vector4d(x, y, z, w);
+        
+        // When
+        var actual = sut.Divide(value);
+
+        // Then
+        Assert.Equal(x / value, actual.X);
+        Assert.Equal(y / value, actual.Y);
+        Assert.Equal(z / value, actual.Z);
+        Assert.Equal(w / value, actual.W);
+    }
 
 }

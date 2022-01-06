@@ -113,5 +113,94 @@ public class Vector2dExtensionsFacts
         Assert.Equal(sut.X / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual.X);
         Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual.Y);
     }
+    
+    [Fact]
+    public void Calculates_length_of_vector()
+    {
+        // Given
+        var sut = new Vector2d(5F, 7F);
+        
+        // When
+        var actual = sut.Length();
 
+        // Then
+        Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y, 0.5F), actual);
+    }
+    
+    [Fact]
+    public void Calculates_squared_length_of_vector()
+    {
+        // Given
+        var sut = new Vector2d(5F, 7F);
+        
+        // When
+        var actual = sut.SquaredLength();
+
+        // Then
+        Assert.Equal(sut.X * sut.X + sut.Y * sut.Y, actual);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Adds_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Add(value);
+
+        // Then
+        Assert.Equal(x + value, actual.X);
+        Assert.Equal(y + value, actual.Y);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Subtracts_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Subtract(value);
+
+        // Then
+        Assert.Equal(x - value, actual.X);
+        Assert.Equal(y - value, actual.Y);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Multiplies_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Multiply(value);
+
+        // Then
+        Assert.Equal(x * value, actual.X);
+        Assert.Equal(y * value, actual.Y);
+    }
+    
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Divides_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Divide(value);
+
+        // Then
+        Assert.Equal(x / value, actual.X);
+        Assert.Equal(y / value, actual.Y);
+    }
 }

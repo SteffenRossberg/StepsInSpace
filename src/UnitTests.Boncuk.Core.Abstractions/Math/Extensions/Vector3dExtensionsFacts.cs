@@ -135,5 +135,99 @@ public class Vector3dExtensionsFacts
         Assert.Equal(sut.Y / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Y);
         Assert.Equal(sut.Z / (float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual.Z);
     }
+    
+    [Fact]
+    public void Calculates_length_of_vector()
+    {
+        // Given
+        var sut = new Vector3d(5F, 7F, 9F);
+        
+        // When
+        var actual = sut.Length();
+
+        // Then
+        Assert.Equal((float)System.Math.Pow(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, 0.5F), actual);
+    }
+    
+    [Fact]
+    public void Calculates_squared_length_of_vector()
+    {
+        // Given
+        var sut = new Vector3d(5F, 7F, 9F);
+        
+        // When
+        var actual = sut.SquaredLength();
+
+        // Then
+        Assert.Equal(sut.X * sut.X + sut.Y * sut.Y + sut.Z * sut.Z, actual);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F)]
+    [InlineData(-2F, -3F, -4F, 5F)]
+    public void Adds_number(float x, float y, float z, float value)
+    {
+        // Given
+        var sut = new Vector3d(x, y, z);
+        
+        // When
+        var actual = sut.Add(value);
+
+        // Then
+        Assert.Equal(x + value, actual.X);
+        Assert.Equal(y + value, actual.Y);
+        Assert.Equal(z + value, actual.Z);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F)]
+    [InlineData(-2F, -3F, -4F, 5F)]
+    public void Subtracts_number(float x, float y, float z, float value)
+    {
+        // Given
+        var sut = new Vector3d(x, y, z);
+        
+        // When
+        var actual = sut.Subtract(value);
+
+        // Then
+        Assert.Equal(x - value, actual.X);
+        Assert.Equal(y - value, actual.Y);
+        Assert.Equal(z - value, actual.Z);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F)]
+    [InlineData(-2F, -3F, -4F, 5F)]
+    public void Multiplies_number(float x, float y, float z, float value)
+    {
+        // Given
+        var sut = new Vector3d(x, y, z);
+        
+        // When
+        var actual = sut.Multiply(value);
+
+        // Then
+        Assert.Equal(x * value, actual.X);
+        Assert.Equal(y * value, actual.Y);
+        Assert.Equal(z * value, actual.Z);
+    }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F)]
+    [InlineData(-2F, -3F, -4F, 5F)]
+    public void Divides_number(float x, float y, float z, float value)
+    {
+        // Given
+        var sut = new Vector3d(x, y, z);
+        
+        // When
+        var actual = sut.Divide(value);
+
+        // Then
+        Assert.Equal(x / value, actual.X);
+        Assert.Equal(y / value, actual.Y);
+        Assert.Equal(z / value, actual.Z);
+    }
 
 }
