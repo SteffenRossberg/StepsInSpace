@@ -24,4 +24,64 @@ public class QuaternionFacts
         Assert.Equal(z, sut.Z);
         Assert.Equal(w, sut.W);
     }
+            
+    [Fact]
+    public void Returns_unit_x()
+    {
+        // Given
+        
+        // When
+        var sut = Quaternion.UnitX;
+        
+        // Then
+        Assert.Equal(1.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }
+
+    [Fact]
+    public void Returns_unit_y()
+    {
+        // Given
+        
+        // When
+        var sut = Quaternion.UnitY;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(1.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }
+    
+    [Fact]
+    public void Returns_unit_z()
+    {
+        // Given
+        
+        // When
+        var sut = Quaternion.UnitZ;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(1.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }    
+    
+    [Fact]
+    public void Returns_unit_w()
+    {
+        // Given
+        
+        // When
+        var sut = Quaternion.UnitW;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(1.0F, sut.W);
+    }
 }
