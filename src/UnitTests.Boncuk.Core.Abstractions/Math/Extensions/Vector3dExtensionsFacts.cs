@@ -104,4 +104,21 @@ public class Vector3dExtensionsFacts
         Assert.Equal(expected, actual);
     }
 
+    [Theory]
+    [InlineData(1F, 2F, 3F, 3F, 4F, 5F, 2F * 5F - 3F * 4F, 3F * 3F - 1F * 5F, 1F * 4F - 2F * 3F)]
+    public void Crosses_vectors(float x1, float y1, float z1, float x2, float y2, float z2, float expectedX, float expectedY, float expectedZ)
+    {
+        // Given
+        var sut = new Vector3d(x1, y1, z1);
+        var right = new Vector3d(x2, y2, z2);
+        
+        // When
+        var actual = sut.Cross(right);
+
+        // Then
+        Assert.Equal(expectedX, actual.X);
+        Assert.Equal(expectedY, actual.Y);
+        Assert.Equal(expectedZ, actual.Z);
+    }
+
 }

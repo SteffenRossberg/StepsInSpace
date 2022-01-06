@@ -16,4 +16,9 @@ public static class Vector3dExtensions
 
     public static float Dot(this Vector3d left, Vector3d right)
         => left.X * right.X + left.Y * right.Y + left.Z * right.Z;
+
+    public static Vector3d Cross(this Vector3d left, Vector3d right)
+        => new (left.Y * right.Z - left.Z * right.Y,
+            left.Z * right.X - left.X * right.Z,
+            left.X * right.Y - left.Y * right.X);
 }
