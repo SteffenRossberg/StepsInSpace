@@ -186,4 +186,22 @@ public class QuaternionExtensionsFacts
         Assert.Equal(w - value, actual.W);
     }
 
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F, 6F)]
+    [InlineData(-2F, -3F, -4F, -5F, 6F)]
+    public void Multiplies_number(float x, float y, float z, float w, float value)
+    {
+        // Given
+        var sut = new Quaternion(x, y, z, w);
+        
+        // When
+        var actual = sut.Multiply(value);
+
+        // Then
+        Assert.Equal(x * value, actual.X);
+        Assert.Equal(y * value, actual.Y);
+        Assert.Equal(z * value, actual.Z);
+        Assert.Equal(w * value, actual.W);
+    }
+
 }

@@ -17,6 +17,9 @@ public static class QuaternionExtensions
     public static Quaternion Multiply(this Quaternion left, Quaternion right)
         => new (left.X * right.X, left.Y * right.Y, left.Z * right.Z, left.W * right.W);
 
+    public static Quaternion Multiply(this Quaternion left, float value)
+        => new (left.X * value, left.Y * value, left.Z * value, left.W * value);
+
     public static Quaternion Divide(this Quaternion left, Quaternion right)
         => new (left.X / right.X, left.Y / right.Y, left.Z / right.Z, left.W / right.W);
     
