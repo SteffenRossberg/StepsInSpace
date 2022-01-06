@@ -23,6 +23,9 @@ public static class Vector3dExtensions
     public static Vector3d Divide(this Vector3d left, Vector3d right)
         => new (left.X / right.X, left.Y / right.Y, left.Z / right.Z);
 
+    public static Vector3d Divide(this Vector3d left, float value)
+        => new (left.X / value, left.Y / value, left.Z / value);
+
     public static float Dot(this Vector3d left, Vector3d right)
         => left.X * right.X + left.Y * right.Y + left.Z * right.Z;
 
@@ -32,10 +35,7 @@ public static class Vector3dExtensions
             left.X * right.Y - left.Y * right.X);
     
     public static Vector3d Normalize(this Vector3d source)
-    {
-        var length = source.Length();
-        return new (source.X / length, source.Y / length, source.Z / length);
-    }
+        => source.Divide(source.Length());
 
     public static float Length(this Vector3d source)
         => (float) System.Math.Sqrt(source.SquaredLength());
