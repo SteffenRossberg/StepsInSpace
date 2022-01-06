@@ -155,4 +155,20 @@ public class Vector2dExtensionsFacts
         Assert.Equal(x + value, actual.X);
         Assert.Equal(y + value, actual.Y);
     }
+
+    [Theory]
+    [InlineData(2F, 3F, 4F)]
+    [InlineData(-2F, -3F, 4F)]
+    public void Subtracts_number(float x, float y, float value)
+    {
+        // Given
+        var sut = new Vector2d(x, y);
+        
+        // When
+        var actual = sut.Subtract(value);
+
+        // Then
+        Assert.Equal(x - value, actual.X);
+        Assert.Equal(y - value, actual.Y);
+    }
 }

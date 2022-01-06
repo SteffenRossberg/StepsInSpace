@@ -11,6 +11,9 @@ public static class Vector2dExtensions
     public static Vector2d Subtract(this Vector2d left, Vector2d right)
         => new (left.X - right.X, left.Y - right.Y);
 
+    public static Vector2d Subtract(this Vector2d left, float value)
+        => new (left.X - value, left.Y - value);
+
     public static Vector2d Multiply(this Vector2d left, Vector2d right)
         => new (left.X * right.X, left.Y * right.Y);
 

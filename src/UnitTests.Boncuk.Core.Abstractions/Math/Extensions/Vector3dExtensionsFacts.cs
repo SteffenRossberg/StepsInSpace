@@ -179,4 +179,21 @@ public class Vector3dExtensionsFacts
         Assert.Equal(z + value, actual.Z);
     }
 
+    [Theory]
+    [InlineData(2F, 3F, 4F, 5F)]
+    [InlineData(-2F, -3F, -4F, 5F)]
+    public void Subtracts_number(float x, float y, float z, float value)
+    {
+        // Given
+        var sut = new Vector3d(x, y, z);
+        
+        // When
+        var actual = sut.Subtract(value);
+
+        // Then
+        Assert.Equal(x - value, actual.X);
+        Assert.Equal(y - value, actual.Y);
+        Assert.Equal(z - value, actual.Z);
+    }
+
 }
