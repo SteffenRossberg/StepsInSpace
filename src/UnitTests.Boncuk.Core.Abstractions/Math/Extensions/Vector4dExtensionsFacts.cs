@@ -15,10 +15,10 @@ public class Vector4dExtensionsFacts
     {
         // Given
         var sut = new Vector4d(x1, y1, z1, w1);
-        var source2 = new Vector4d(x2, y2, z2, w2);
+        var right = new Vector4d(x2, y2, z2, w2);
         
         // When
-        var actual = sut.Add(source2);
+        var actual = sut.Add(right);
 
         // Then
         Assert.Equal(expectedX, actual.X);
@@ -36,10 +36,10 @@ public class Vector4dExtensionsFacts
     {
         // Given
         var sut = new Vector4d(x1, y1, z1, w1);
-        var source2 = new Vector4d(x2, y2, z2, w2);
+        var right = new Vector4d(x2, y2, z2, w2);
         
         // When
-        var actual = sut.Subtract(source2);
+        var actual = sut.Subtract(right);
 
         // Then
         Assert.Equal(expectedX, actual.X);
@@ -57,10 +57,10 @@ public class Vector4dExtensionsFacts
     {
         // Given
         var sut = new Vector4d(x1, y1, z1, w1);
-        var source2 = new Vector4d(x2, y2, z2, w2);
+        var right = new Vector4d(x2, y2, z2, w2);
         
         // When
-        var actual = sut.Multiply(source2);
+        var actual = sut.Multiply(right);
 
         // Then
         Assert.Equal(expectedX, actual.X);
@@ -78,10 +78,10 @@ public class Vector4dExtensionsFacts
     {
         // Given
         var sut = new Vector4d(x1, y1, z1, w1);
-        var source2 = new Vector4d(x2, y2, z2, w2);
+        var right = new Vector4d(x2, y2, z2, w2);
     
         // When
-        var actual = sut.Divide(source2);
+        var actual = sut.Divide(right);
 
         // Then
         Assert.Equal(expectedX, actual.X);
