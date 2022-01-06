@@ -22,4 +22,30 @@ public class Vector2dFacts
         Assert.Equal(x, sut.X);
         Assert.Equal(y, sut.Y);
     }
+
+    [Fact]
+    public void Returns_unit_x()
+    {
+        // Given
+        
+        // When
+        var sut = Vector2d.UnitX;
+        
+        // Then
+        Assert.Equal(1.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+    }
+
+    [Fact]
+    public void Returns_unit_y()
+    {
+        // Given
+        
+        // When
+        var sut = Vector2d.UnitY;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(1.0F, sut.Y);
+    }
 }
