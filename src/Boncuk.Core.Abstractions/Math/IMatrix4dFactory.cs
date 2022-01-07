@@ -22,5 +22,5 @@ public interface IMatrix4dFactory
 
     Matrix4d CreatePerspectiveFieldOfView(float fovy, float aspect, float near, float far);
     
-    Matrix4d CreatePerspective(float left, float right, float bottom, float top, float near, float far);
+    Matrix4d CreatePerspectiveOfCenter(float left, float right, float bottom, float top, float near, float far);
 }
