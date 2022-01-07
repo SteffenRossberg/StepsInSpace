@@ -25,18 +25,18 @@ public static class CollisionExtensions
         return sphere.Center.Subtract(hit).SquaredLength() <= sphere.SquaredRadius;
     }
 
-    public static bool Intersects(this BoundingSphere sphere, Plane plane)
-        => throw new NotImplementedException();
-    
     public static bool Intersects(this Ray ray, Plane plane)
+        => throw new NotImplementedException();
+
+    public static bool Intersects(this Plane plane, Ray ray)
+        => throw new NotImplementedException();
+
+    public static bool Intersects(this BoundingSphere sphere, Plane plane)
         => throw new NotImplementedException();
 
     public static bool Intersects(this Plane plane, BoundingSphere sphere)
         => throw new NotImplementedException();
 
-    public static bool Intersects(this Plane plane, Ray sphere)
-        => throw new NotImplementedException();
-    
     public static Intersection? GetIntersection(this Ray ray, BoundingSphere sphere)
         => throw new NotImplementedException();
     
