@@ -106,7 +106,12 @@ public class Matrix4dFactory : IMatrix4dFactory
         float near, 
         float far)
     {
-        throw new System.NotImplementedException();
+        var top = (float)(near * System.Math.Tan(0.5F * fovy));
+        var bottom = -top;
+        var left = bottom * aspect;
+        var right = top * aspect;
+        
+        return CreatePerspectiveOfCenter(left, right, bottom, top, near, far);
     }
 
     public Matrix4d CreatePerspectiveOfCenter(
