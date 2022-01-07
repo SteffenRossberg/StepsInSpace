@@ -26,16 +26,31 @@ public static class CollisionExtensions
     }
 
     public static bool Intersects(this Ray ray, Plane plane)
-        => throw new NotImplementedException();
+        => IntersectsRayPlane(ray, plane);
 
     public static bool Intersects(this Plane plane, Ray ray)
-        => throw new NotImplementedException();
+        => IntersectsRayPlane(ray, plane);
+
+    private static bool IntersectsRayPlane(Ray ray, Plane plane)
+    {
+        var nd = ray.Direction.Normalize().Dot(plane.Normal);
+        if (nd == 0.0)
+            return false;
+        var no = -(plane.Normal.Dot(ray.Origin) + plane.D) / nd;
+        return no >= 0F;
+    }
 
     public static bool Intersects(this BoundingSphere sphere, Plane plane)
-        => throw new NotImplementedException();
+        => IntersectsBoundingSpherePlane(sphere, plane);
 
     public static bool Intersects(this Plane plane, BoundingSphere sphere)
-        => throw new NotImplementedException();
+        => IntersectsBoundingSpherePlane(sphere, plane);
+
+    private static bool IntersectsBoundingSpherePlane(BoundingSphere sphere, Plane plane)
+    {
+        var distance = plane.Normal.Dot(sphere.Center) + plane.D;
+        return distance * distance <= sphere.SquaredRadius;
+    }
 
     public static Intersection? GetIntersection(this Ray ray, BoundingSphere sphere)
         => throw new NotImplementedException();
