@@ -114,4 +114,36 @@ public class CollisionExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+    
+    [Theory]
+    [InlineData(0F, 0F, 0F, 1F,  3F, 0F, 0F, 1F, false)]
+    [InlineData(0F, 0F, 0F, 1F,  2F, 0F, 0F, 1F, true)]
+    [InlineData(0F, 0F, 0F, 0.1F,  0.2F, 0F, 0F, 0.1F, true)]
+    [InlineData(0F, 0F, 0F, 1F,  1F, 0F, 0F, 1F, true)]
+    public void Bounding_sphere_intersects_other_bounding_sphere(
+        float centerX1, float centerY1, float centerZ1,float radius1,
+        float centerX2, float centerY2, float centerZ2,float radius2,
+        bool expected)
+    {
+        // Given
+        var sut = new BoundingSphere(
+            new Vector3d(centerX1, centerY1, centerZ1),
+            radius1);
+
+        var other = new BoundingSphere(
+            new Vector3d(centerX2, centerY2, centerZ2),
+            radius2);
+        
+        // When
+        var actual = sut.Intersects(other);
+            
+        // Then
+        Assert.Equal(expected, actual);
+        
+        // When
+        actual = other.Intersects(sut);
+            
+        // Then
+        Assert.Equal(expected, actual);
+    }
 }

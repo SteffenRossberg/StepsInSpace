@@ -52,6 +52,13 @@ public static class CollisionExtensions
         return distance * distance <= sphere.SquaredRadius;
     }
 
+    public static bool Intersects(this BoundingSphere sphere, BoundingSphere other)
+    {
+        var direction = sphere.Center.Subtract(other.Center);
+        var distance = sphere.Radius + other.Radius;
+        return direction.SquaredLength() <= distance * distance;
+    }
+
     public static Intersection? GetIntersection(this Ray ray, BoundingSphere sphere)
         => throw new NotImplementedException();
     
