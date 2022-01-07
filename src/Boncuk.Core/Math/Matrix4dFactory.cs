@@ -38,9 +38,11 @@ public class Matrix4dFactory : IMatrix4dFactory
             row3.X, row3.Y, row3.Z, row3.W);
 
     public Matrix4d CreateTranslation(Vector3d direction)
-    {
-        throw new System.NotImplementedException();
-    }
+        => Create(
+            Vector4d.UnitX,
+            Vector4d.UnitY,
+            Vector4d.UnitZ,
+            new Vector4d(direction.X, direction.Y, direction.Z, 1));
 
     public Matrix4d CreateRotation(Quaternion rotation)
     {
