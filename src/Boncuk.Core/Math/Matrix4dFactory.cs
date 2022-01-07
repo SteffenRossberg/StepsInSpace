@@ -109,7 +109,7 @@ public class Matrix4dFactory : IMatrix4dFactory
         throw new System.NotImplementedException();
     }
 
-    public Matrix4d CreatePerspective(
+    public Matrix4d CreatePerspectiveOfCenter(
         float left, 
         float right, 
         float bottom, 
@@ -117,6 +117,17 @@ public class Matrix4dFactory : IMatrix4dFactory
         float near,
         float far)
     {
-        throw new System.NotImplementedException();
+        var x = 2.0F * near / (right - left);
+        var y = 2.0F * near / (top - bottom);
+        var a = (right + left) / (right - left);
+        var b = (top + bottom) / (top - bottom);
+        var c = -(far + near) / (far - near);
+        var d = -(2.0F * far * near) / (far - near);
+
+        return Create(
+            x, 0, 0, 0,
+            0, y, 0, 0,
+            a, b, c, -1,
+            0, 0, d, 0);
     }
 }
