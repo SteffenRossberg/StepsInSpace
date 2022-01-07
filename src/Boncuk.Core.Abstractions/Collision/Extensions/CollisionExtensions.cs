@@ -13,19 +13,10 @@ public static class CollisionExtensions
         => GetIntersection(ray, sphere).HasValue;
 
     public static bool Intersects(this Ray ray, Plane plane)
-        => IntersectsRayPlane(ray, plane);
+        => GetIntersection(ray, plane).HasValue;
 
     public static bool Intersects(this Plane plane, Ray ray)
-        => IntersectsRayPlane(ray, plane);
-
-    private static bool IntersectsRayPlane(Ray ray, Plane plane)
-    {
-        var nd = ray.NormalizedDirection.Dot(plane.Normal);
-        if (nd == 0.0)
-            return false;
-        var no = -(plane.Normal.Dot(ray.Origin) + plane.D) / nd;
-        return no >= 0F;
-    }
+        => GetIntersection(ray, plane).HasValue;
 
     public static bool Intersects(this BoundingSphere sphere, Plane plane)
         => IntersectsBoundingSpherePlane(sphere, plane);
@@ -61,5 +52,13 @@ public static class CollisionExtensions
 
     
     public static Intersection? GetIntersection(this Ray ray, Plane plane)
-        => throw new NotImplementedException();
+    {
+        var nd = ray.NormalizedDirection.Dot(plane.Normal);
+        if (nd == 0F) return null;
+        var no = -(plane.Normal.Dot(ray.Origin) + plane.D) / nd;
+        if (no < 0F) return null;
+        var direction = ray.NormalizedDirection.Multiply(no);
+        var hit = ray.Origin.Add(direction);
+        return new Intersection(direction, hit);
+    }
 }

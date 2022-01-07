@@ -179,4 +179,39 @@ public class CollisionExtensionsFacts
         Assert.Equal(hitY, actual?.Hit.Y);
         Assert.Equal(hitZ, actual?.Hit.Z);
     }
+        
+    [Theory]
+    [InlineData(0F, 0F, -1F,  0F, 0F, 1F,  0F, 0F, 0F,  1F, 0F, 0F,  0F, 1F, 0F,  0F, 0F, 1F,        0F, 0F, 0F)]
+    [InlineData(0F, 0F,  1F,  0F, 0F, 1F,  0F, 0F, 0F,  1F, 0F, 0F,  0F, 1F, 0F,  null, null, null,  null, null, null)]
+    public void Get_intersection_from_ray_to_plane(
+        float originX, float originY, float originZ,
+        float directionX, float directionY, float directionZ,
+        float aX, float aY, float aZ,
+        float bX, float bY, float bZ,
+        float cX, float cY, float cZ,
+        float? hitDirectionX, float? hitDirectionY, float? hitDirectionZ,
+        float? hitX, float? hitY, float? hitZ)
+    {
+        // Given
+        var ray = new Ray(
+            new Vector3d(originX, originY, originZ),
+            new Vector3d(directionX, directionY, directionZ));
+
+        var plane = new Plane(
+            new Vector3d(aX, aY, aZ),
+            new Vector3d(bX, bY, bZ),
+            new Vector3d(cX, cY, cZ));
+        
+        // When
+        var actual = ray.GetIntersection(plane);
+            
+        // Then
+        Assert.Equal(hitDirectionX, actual?.Direction.X);
+        Assert.Equal(hitDirectionY, actual?.Direction.Y);
+        Assert.Equal(hitDirectionZ, actual?.Direction.Z);
+
+        Assert.Equal(hitX, actual?.Hit.X);
+        Assert.Equal(hitY, actual?.Hit.Y);
+        Assert.Equal(hitZ, actual?.Hit.Z);
+    }
 }
