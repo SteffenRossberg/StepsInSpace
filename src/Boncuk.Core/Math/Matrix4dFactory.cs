@@ -90,7 +90,14 @@ public class Matrix4dFactory : IMatrix4dFactory
         Vector3d target, 
         Vector3d up)
     {
-        throw new System.NotImplementedException();
+        var z = eye.Subtract(target).Normalize();
+        var x = up.Cross(z).Normalize();
+        var y = z.Cross(x).Normalize();
+        return Create(
+            x.X, y.X, z.X, 0,
+            x.Y, y.Y, z.Y, 0,
+            x.Z, y.Z, z.Z, 0,
+            -x.Dot(eye), -y.Dot(eye), -z.Dot(eye), 1);
     }
 
     public Matrix4d CreatePerspectiveFieldOfView(
@@ -99,10 +106,15 @@ public class Matrix4dFactory : IMatrix4dFactory
         float near, 
         float far)
     {
-        throw new System.NotImplementedException();
+        var top = (float)(near * System.Math.Tan(0.5F * fovy));
+        var bottom = -top;
+        var left = bottom * aspect;
+        var right = top * aspect;
+        
+        return CreatePerspectiveOfCenter(left, right, bottom, top, near, far);
     }
 
-    public Matrix4d CreatePerspective(
+    public Matrix4d CreatePerspectiveOfCenter(
         float left, 
         float right, 
         float bottom, 
@@ -110,6 +122,20 @@ public class Matrix4dFactory : IMatrix4dFactory
         float near,
         float far)
     {
-        throw new System.NotImplementedException();
+        var horizontalRange = right - left;
+        var verticalRange = top - bottom;
+        var depthRange = far - near;
+        var x = 2F * near / horizontalRange;
+        var y = 2F * near / verticalRange;
+        var a = (right + left) / horizontalRange;
+        var b = (top + bottom) / verticalRange;
+        var c = -(far + near) / depthRange;
+        var d = -(2F * far * near) / depthRange;
+
+        return Create(
+            x, 0, 0, 0,
+            0, y, 0, 0,
+            a, b, c, -1,
+            0, 0, d, 0);
     }
 }
