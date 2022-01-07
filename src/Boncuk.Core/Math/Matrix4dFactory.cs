@@ -122,12 +122,15 @@ public class Matrix4dFactory : IMatrix4dFactory
         float near,
         float far)
     {
-        var x = 2F * near / (right - left);
-        var y = 2F * near / (top - bottom);
-        var a = (right + left) / (right - left);
-        var b = (top + bottom) / (top - bottom);
-        var c = -(far + near) / (far - near);
-        var d = -(2F * far * near) / (far - near);
+        var horizontalRange = right - left;
+        var verticalRange = top - bottom;
+        var depthRange = far - near;
+        var x = 2F * near / horizontalRange;
+        var y = 2F * near / verticalRange;
+        var a = (right + left) / horizontalRange;
+        var b = (top + bottom) / verticalRange;
+        var c = -(far + near) / depthRange;
+        var d = -(2F * far * near) / depthRange;
 
         return Create(
             x, 0, 0, 0,
