@@ -9,7 +9,7 @@ public class RayFacts
     [Theory]
     [InlineData(1F, 2F, 3F, 4F, 5F, 6F)]
     [InlineData(2F, 3F, 4F, 5F, 6F, 7F)]
-    public void Initializes_bounding_sphere(
+    public void Initializes_ray(
         float originX, float originY, float originZ, 
         float directionX, float directionY, float directionZ)
     {
