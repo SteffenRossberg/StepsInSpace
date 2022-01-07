@@ -1,4 +1,5 @@
 using Boncuk.Core.Abstractions.Math;
+using Boncuk.Core.Abstractions.Math.Extensions;
 
 namespace Boncuk.Core.Math;
 
@@ -39,20 +40,50 @@ public class Matrix4dFactory : IMatrix4dFactory
 
     public Matrix4d CreateTranslation(Vector3d direction)
         => Create(
-            Vector4d.UnitX,
-            Vector4d.UnitY,
-            Vector4d.UnitZ,
-            new Vector4d(direction.X, direction.Y, direction.Z, 1));
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            direction.X, direction.Y, direction.Z, 1);
 
     public Matrix4d CreateRotation(Quaternion rotation)
     {
-        throw new System.NotImplementedException();
+        var squareRotation = rotation.Multiply(rotation);
+        var xy = rotation.X * rotation.Y;
+        var xz = rotation.X * rotation.Z;
+        var xw = rotation.X * rotation.W;
+        var yz = rotation.Y * rotation.Z;
+        var yw = rotation.Y * rotation.W;
+        var zw = rotation.Z * rotation.W;
+        var s2 = 2F / (squareRotation.X + squareRotation.Y + squareRotation.Z + squareRotation.W);
+        var m00 = 1F - (s2 * (squareRotation.Y + squareRotation.Z));
+        var m01 = s2 * (xy + zw);
+        var m02 = s2 * (xz - yw);
+        var m03 = 0F;
+        var m10 = s2 * (xy - zw);
+        var m11 = 1f - (s2 * (squareRotation.X + squareRotation.Z));
+        var m12 = s2 * (yz + xw);
+        var m13 = 0F;
+        var m20 = s2 * (xz + yw);
+        var m21 = s2 * (yz - xw);
+        var m22 = 1F - (s2 * (squareRotation.X + squareRotation.Y));
+        var m23 = 0F;
+        var m30 = 0F;
+        var m31 = 0F;
+        var m32 = 0F;
+        var m33 = 1F;
+        return Create(
+            m00, m01, m02, m03,
+            m10, m11, m12, m13,
+            m20, m21, m22, m23,
+            m30, m31, m32, m33);
     }
 
     public Matrix4d CreateScale(Vector3d scale)
-    {
-        throw new System.NotImplementedException();
-    }
+        => Create(
+            scale.X, 0, 0, 0,
+            0, scale.Y, 0, 0,
+            0, 0, scale.Z, 0,
+            0, 0, 0, 1);
 
     public Matrix4d CreateLookAt(
         Vector3d eye, 
