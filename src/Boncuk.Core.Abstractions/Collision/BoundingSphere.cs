@@ -2,7 +2,7 @@ using Boncuk.Core.Abstractions.Math;
 
 namespace Boncuk.Core.Abstractions.Collision;
 
-public struct BoundingSphere
+public readonly struct BoundingSphere
 {
     public readonly Vector3d Center;
     public readonly float Radius;
