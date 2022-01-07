@@ -56,4 +56,39 @@ public class Matrix4dExtensionsFacts
         Assert.Equal(row3.Dot(column2), actual.M32);
         Assert.Equal(row3.Dot(column3), actual.M33);
     }
+    
+    [Fact]
+    public void Converts_to_array()
+    {
+        // Given
+        var sut = new Matrix4d(
+            01, 02, 03, 04,
+            05, 06, 07, 08,
+            09, 10, 11, 12,
+            13, 14, 15, 16);
+        
+        // When
+        var actual = sut.ToArray();
+        
+        // Then
+        Assert.Equal(sut.M00, actual[00]);
+        Assert.Equal(sut.M01, actual[01]);
+        Assert.Equal(sut.M02, actual[02]);
+        Assert.Equal(sut.M03, actual[03]);
+        
+        Assert.Equal(sut.M10, actual[04]);
+        Assert.Equal(sut.M11, actual[05]);
+        Assert.Equal(sut.M12, actual[06]);
+        Assert.Equal(sut.M13, actual[07]);
+        
+        Assert.Equal(sut.M20, actual[08]);
+        Assert.Equal(sut.M21, actual[09]);
+        Assert.Equal(sut.M22, actual[10]);
+        Assert.Equal(sut.M23, actual[11]);
+        
+        Assert.Equal(sut.M30, actual[12]);
+        Assert.Equal(sut.M31, actual[13]);
+        Assert.Equal(sut.M32, actual[14]);
+        Assert.Equal(sut.M33, actual[15]);
+    }
 }

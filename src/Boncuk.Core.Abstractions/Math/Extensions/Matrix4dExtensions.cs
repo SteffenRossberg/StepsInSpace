@@ -22,4 +22,13 @@ public static class Matrix4dExtensions
 
         return matrix;
     }
+
+    public static float[] ToArray(this Matrix4d source)
+        => new[]
+        {
+            source.M00, source.M01, source.M02, source.M03,
+            source.M10, source.M11, source.M12, source.M13,
+            source.M20, source.M21, source.M22, source.M23,
+            source.M30, source.M31, source.M32, source.M33,
+        };
 }
