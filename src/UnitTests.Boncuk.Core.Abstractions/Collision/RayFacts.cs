@@ -1,5 +1,6 @@
 using Boncuk.Core.Abstractions.Collision;
 using Boncuk.Core.Abstractions.Math;
+using Boncuk.Core.Abstractions.Math.Extensions;
 using Xunit;
 
 namespace UnitTests.Boncuk.Core.Abstractions.Collision;
@@ -16,6 +17,7 @@ public class RayFacts
         // Given
         var origin = new Vector3d(originX, originY, originZ);
         var direction = new Vector3d(directionX, directionY, directionZ);
+        var normalizedDirection = direction.Normalize();
         
         
         // When
@@ -29,5 +31,9 @@ public class RayFacts
         Assert.Equal(directionX, sut.Direction.X);
         Assert.Equal(directionY, sut.Direction.Y);
         Assert.Equal(directionZ, sut.Direction.Z);
+
+        Assert.Equal(normalizedDirection.X, sut.NormalizedDirection.X);
+        Assert.Equal(normalizedDirection.Y, sut.NormalizedDirection.Y);
+        Assert.Equal(normalizedDirection.Z, sut.NormalizedDirection.Z);
     }
 }
