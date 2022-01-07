@@ -17,7 +17,7 @@ public static class CollisionExtensions
         var pointToCenter = sphere.Center.Subtract(ray.Origin);
         if (pointToCenter.SquaredLength() <= sphere.SquaredRadius)
             return true;
-        var normalizedRayDirection = ray.Direction.Normalize();
+        var normalizedRayDirection = ray.NormalizedDirection;
         var distance = pointToCenter.Dot(normalizedRayDirection);
         if (distance < 0F)
             return false;
@@ -33,7 +33,7 @@ public static class CollisionExtensions
 
     private static bool IntersectsRayPlane(Ray ray, Plane plane)
     {
-        var nd = ray.Direction.Normalize().Dot(plane.Normal);
+        var nd = ray.NormalizedDirection.Dot(plane.Normal);
         if (nd == 0.0)
             return false;
         var no = -(plane.Normal.Dot(ray.Origin) + plane.D) / nd;
