@@ -7,23 +7,10 @@ namespace Boncuk.Core.Abstractions.Collision.Extensions;
 public static class CollisionExtensions
 {
     public static bool Intersects(this BoundingSphere sphere, Ray ray)
-        => IntersectsRayBoundingSphere(ray, sphere);
+        => GetIntersection(ray, sphere).HasValue;
 
     public static bool Intersects(this Ray ray, BoundingSphere sphere)
-        => IntersectsRayBoundingSphere(ray, sphere);
-
-    private static bool IntersectsRayBoundingSphere(Ray ray, BoundingSphere sphere)
-    {
-        var pointToCenter = sphere.Center.Subtract(ray.Origin);
-        if (pointToCenter.SquaredLength() <= sphere.SquaredRadius)
-            return true;
-        var normalizedRayDirection = ray.NormalizedDirection;
-        var distance = pointToCenter.Dot(normalizedRayDirection);
-        if (distance < 0F)
-            return false;
-        var hit = ray.Origin.Add(normalizedRayDirection.Multiply(distance));
-        return sphere.Center.Subtract(hit).SquaredLength() <= sphere.SquaredRadius;
-    }
+        => GetIntersection(ray, sphere).HasValue;
 
     public static bool Intersects(this Ray ray, Plane plane)
         => IntersectsRayPlane(ray, plane);
@@ -60,7 +47,18 @@ public static class CollisionExtensions
     }
 
     public static Intersection? GetIntersection(this Ray ray, BoundingSphere sphere)
-        => throw new NotImplementedException();
+    {
+        var centerToOrigin = ray.Origin.Subtract(sphere.Center);
+        var b = centerToOrigin.Dot(ray.Direction);
+        var c = centerToOrigin.SquaredLength() - sphere.SquaredRadius;
+        if (c > 0F && b > 0F) return null;
+        var discriminant = b * b - c;
+        if (discriminant < 0F) return null;
+        var t = (float)System.Math.Max(0F, -b - System.Math.Sqrt(discriminant));
+        var hit = ray.Origin.Add(ray.NormalizedDirection.Multiply(t));
+        return new Intersection(hit.Subtract(ray.Origin), hit);
+    }
+
     
     public static Intersection? GetIntersection(this Ray ray, Plane plane)
         => throw new NotImplementedException();

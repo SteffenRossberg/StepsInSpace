@@ -146,4 +146,37 @@ public class CollisionExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+    
+    [Theory]
+    [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  2F, 0F, 0F, 1F,   1F, 0F, 0F,        1F, 0F, 0F)]
+    [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  3F, 0F, 0F, 1F,   2F, 0F, 0F,        2F, 0F, 0F)]
+    [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  -3F, 0F, 0F, 1F,  null, null, null,  null, null, null)]
+    public void Get_intersection_from_ray_to_sphere(
+        float originX, float originY, float originZ,
+        float directionX, float directionY, float directionZ,
+        float centerX, float centerY, float centerZ, float radius,
+        float? hitDirectionX, float? hitDirectionY, float? hitDirectionZ,
+        float? hitX, float? hitY, float? hitZ)
+    {
+        // Given
+        var ray = new Ray(
+            new Vector3d(originX, originY, originZ),
+            new Vector3d(directionX, directionY, directionZ));
+
+        var sphere = new BoundingSphere(
+            new Vector3d(centerX, centerY, centerZ),
+            radius);
+        
+        // When
+        var actual = ray.GetIntersection(sphere);
+            
+        // Then
+        Assert.Equal(hitDirectionX, actual?.Direction.X);
+        Assert.Equal(hitDirectionY, actual?.Direction.Y);
+        Assert.Equal(hitDirectionZ, actual?.Direction.Z);
+
+        Assert.Equal(hitX, actual?.Hit.X);
+        Assert.Equal(hitY, actual?.Hit.Y);
+        Assert.Equal(hitZ, actual?.Hit.Z);
+    }
 }
