@@ -14,4 +14,8 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Boncuk.Core.Abstractions\Boncuk.Core.Abstractions.csproj" />
+    </ItemGroup>
+
 </Project>
