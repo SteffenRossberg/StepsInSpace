@@ -222,4 +222,30 @@ public class QuaternionExtensionsFacts
         Assert.Equal(w / value, actual.W);
     }
 
+    [Theory]
+    [InlineData(1F, 0F, 0F, 0F,   -1F,  0F,  0F,  0F)]
+    [InlineData(0F, 1F, 0F, 0F,    0F, -1F,  0F,  0F)]
+    [InlineData(0F, 0F, 1F, 0F,    0F,  0F, -1F,  0F)]
+    [InlineData(0F, 0F, 0F, 1F,    0F,  0F,  0F, -1F)]
+    [InlineData(2F, 0F, 0F, 0F,   -0.5F,    0F,    0F,    0F)]
+    [InlineData(0F, 2F, 0F, 0F,      0F, -0.5F,    0F,    0F)]
+    [InlineData(0F, 0F, 2F, 0F,      0F,    0F, -0.5F,    0F)]
+    [InlineData(0F, 0F, 0F, 2F,      0F,    0F,    0F, -0.5F)]
+    [InlineData(0F, 0F, 0F, 0F,      0F,    0F,    0F,    0F)]
+    public void Inverts_quaternion(
+        float x, float y, float z, float w, 
+        float expectedX, float expectedY, float expectedZ, float expectedW)
+    {
+        // Given
+        var sut = new Quaternion(x, y, z, w);
+        
+        // When
+        var actual = sut.Invert();
+        
+        // Then
+        Assert.Equal(expectedX, actual.X);
+        Assert.Equal(expectedY, actual.Y);
+        Assert.Equal(expectedZ, actual.Z);
+        Assert.Equal(expectedW, actual.W);
+    }
 }

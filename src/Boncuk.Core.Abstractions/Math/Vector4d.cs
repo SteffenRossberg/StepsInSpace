@@ -11,6 +11,8 @@ public readonly struct Vector4d
     public static readonly Vector4d UnitY = new(0.0F, 1.0F, 0.0F, 0.0F);
     public static readonly Vector4d UnitZ = new(0.0F, 0.0F, 1.0F, 0.0F);
     public static readonly Vector4d UnitW = new(0.0F, 0.0F, 0.0F, 1.0F);
+    public static readonly Vector4d Zero = new();
+    public static readonly Vector4d One = new(1.0F, 1.0F, 1.0F, 1.0F);
 
     public Vector4d(float x, float y, float z, float w) => (X, Y, Z, W) = (x, y, z, w);
 }
