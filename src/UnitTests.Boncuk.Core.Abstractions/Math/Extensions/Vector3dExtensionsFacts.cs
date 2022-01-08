@@ -266,4 +266,31 @@ public class Vector3dExtensionsFacts
         Assert.Equal(expected.Z, actual.Z);
         Assert.Equal(expected.W, actual.W);
     }
+
+    [Theory]
+    [InlineData( 0F,  0F,  0F,    0F,  0F,  0F,  0F)]
+    [InlineData( 1F,  2F,  3F,    4F,  5F,  6F,  7F)]
+    [InlineData(-1F, -2F, -3F,   -4F, -5F, -6F, -7F)]
+    public void Transforms_vector_using_quaternion(float vX, float vY, float vZ, float qX, float qY, float qZ, float qW)
+    {
+        // Given
+        var quaternion = new Quaternion(qX, qY, qZ, qW);
+        var sut = new Vector3d(vX, vY, vZ);
+
+        var left = new Vector3d(qX, qY, qZ);
+        var tmp1 = left.Cross(sut);
+        var tmp2 = sut.Multiply(qW);
+        tmp1 = tmp1.Add(tmp2);
+        tmp2 = left.Cross(tmp1);
+        tmp2 = tmp2.Multiply(2F);
+        var expected = sut.Add(tmp2);
+        
+        // When
+        var actual = sut.Transform(quaternion);
+
+        // Then
+        Assert.Equal(expected.X, actual.X);
+        Assert.Equal(expected.Y, actual.Y);
+        Assert.Equal(expected.Z, actual.Z);
+    }
 }

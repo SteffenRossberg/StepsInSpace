@@ -72,4 +72,12 @@ public static class Vector3dExtensions
         axis = axis.Normalize().Multiply((float)sin);
         return new Quaternion(axis.X, axis.Y, axis.Z, (float)cos).Normalize();
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Vector3d Transform(this Vector3d source, Quaternion quaternion)
+    {
+        var left = new Vector3d(quaternion.X, quaternion.Y, quaternion.Z);
+        var tmp = left.Cross(source).Add(source.Multiply(quaternion.W));
+        return source.Add(left.Cross(tmp).Multiply(2F));
+    }
 }
