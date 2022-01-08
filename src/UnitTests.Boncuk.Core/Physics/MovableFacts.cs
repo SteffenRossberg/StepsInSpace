@@ -213,4 +213,53 @@ public class MovableFacts
         Assert.Equal(expected.Y, sut.Position.Y);
         Assert.Equal(expected.Z, sut.Position.Z);
     }
+    
+    [Theory]
+    [InlineData(0F)]
+    [InlineData(1F)]
+    [InlineData(2F)]
+    [InlineData(3F)]
+    [InlineData(-1F)]
+    [InlineData(-2F)]
+    [InlineData(-3F)]
+    public void Moves_movable_on_x(float distance)
+    {
+        // Given
+        var sut = new Movable();
+        var direction = new Vector3d(distance, 0F, 0F);
+        var expected = sut.Position.Add(direction);
+        
+        // When
+        sut.MoveX(distance);
+        
+        // Then
+        Assert.Equal(expected.X, sut.Position.X);
+        Assert.Equal(expected.Y, sut.Position.Y);
+        Assert.Equal(expected.Z, sut.Position.Z);
+    }
+    
+    [Theory]
+    [InlineData(0F)]
+    [InlineData(1F)]
+    [InlineData(2F)]
+    [InlineData(3F)]
+    [InlineData(-1F)]
+    [InlineData(-2F)]
+    [InlineData(-3F)]
+    public void Moves_movable_on_x_second_time(float distance)
+    {
+        // Given
+        var sut = new Movable();
+        var direction = new Vector3d(distance, 0F, 0F);
+        sut.MoveX(distance);
+        var expected = sut.Position.Add(direction);
+        
+        // When
+        sut.MoveX(distance);
+        
+        // Then
+        Assert.Equal(expected.X, sut.Position.X);
+        Assert.Equal(expected.Y, sut.Position.Y);
+        Assert.Equal(expected.Z, sut.Position.Z);
+    }
 }

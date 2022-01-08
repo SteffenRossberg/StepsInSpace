@@ -22,7 +22,8 @@ public class Movable : IMovable
     public void Roll(float angleInDegree) 
         => _orientation = _orientation.Multiply(Vector3d.UnitZ.CreateRotation(angleInDegree)).Normalize();
 
-    public void MoveX(float distance) => throw new NotImplementedException();
+    public void MoveX(float distance) 
+        => Move(new Vector3d(distance, 0F, 0F));
 
     public void MoveY(float distance) => throw new NotImplementedException();
 
