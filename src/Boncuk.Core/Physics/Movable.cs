@@ -14,14 +14,17 @@ public class Movable : IMovable
     public Quaternion Orientation => _orientation;
 
     public void Pitch(float angleInDegree)
-        => _orientation = _orientation.Multiply(Vector3d.UnitX.CreateRotation(angleInDegree)).Normalize();
+        => Rotate(Vector3d.UnitX, angleInDegree);
     
     public void Yaw(float angleInDegree)        
-        => _orientation = _orientation.Multiply(Vector3d.UnitY.CreateRotation(angleInDegree)).Normalize();
+        => Rotate(Vector3d.UnitY, angleInDegree);
 
     public void Roll(float angleInDegree) 
-        => _orientation = _orientation.Multiply(Vector3d.UnitZ.CreateRotation(angleInDegree)).Normalize();
+        => Rotate(Vector3d.UnitZ, angleInDegree);
 
+    private void Rotate(Vector3d axis, float angleInDegree)
+        => _orientation = _orientation.Multiply(axis.CreateRotation(angleInDegree)).Normalize();
+    
     public void MoveX(float distance) 
         => Move(new Vector3d(distance, 0F, 0F));
 
