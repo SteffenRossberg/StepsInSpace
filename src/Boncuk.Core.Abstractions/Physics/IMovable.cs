@@ -12,7 +12,7 @@ public interface IMovable
 
     void Yaw(float angleInDegree);
 
-    void Role(float angleInDegree);
+    void Roll(float angleInDegree);
 
     void MoveX(float distance);
 

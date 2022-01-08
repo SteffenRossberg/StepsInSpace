@@ -1,20 +1,26 @@
 using System;
 using Boncuk.Core.Abstractions.Math;
+using Boncuk.Core.Abstractions.Math.Extensions;
 using Boncuk.Core.Abstractions.Physics;
 
 namespace Boncuk.Core.Physics;
 
 public class Movable : IMovable
 {
-    public Vector3d Position => throw new NotImplementedException();
+    private Vector3d _position = Vector3d.Zero;
+    public Vector3d Position => _position;
     
-    public Quaternion Orientation => throw new NotImplementedException();
+    private Quaternion _orientation = Quaternion.Identity;
+    public Quaternion Orientation => _orientation;
 
-    public void Pitch(float angleInDegree) => throw new NotImplementedException();
+    public void Pitch(float angleInDegree)
+        => _orientation = _orientation.Multiply(Vector3d.UnitX.CreateRotation(angleInDegree)).Normalize();
+    
+    public void Yaw(float angleInDegree)        
+        => _orientation = _orientation.Multiply(Vector3d.UnitY.CreateRotation(angleInDegree)).Normalize();
 
-    public void Yaw(float angleInDegree) => throw new NotImplementedException();
-
-    public void Role(float angleInDegree) => throw new NotImplementedException();
+    public void Roll(float angleInDegree) 
+        => _orientation = _orientation.Multiply(Vector3d.UnitZ.CreateRotation(angleInDegree)).Normalize();
 
     public void MoveX(float distance) => throw new NotImplementedException();
 
