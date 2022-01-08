@@ -25,7 +25,8 @@ public class Movable : IMovable
     public void MoveX(float distance) 
         => Move(new Vector3d(distance, 0F, 0F));
 
-    public void MoveY(float distance) => throw new NotImplementedException();
+    public void MoveY(float distance) 
+        => Move(new Vector3d(0F, distance, 0F));
 
     public void MoveZ(float distance) => throw new NotImplementedException();
 
