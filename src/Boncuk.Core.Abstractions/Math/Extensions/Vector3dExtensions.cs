@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 
 namespace Boncuk.Core.Abstractions.Math.Extensions;
@@ -57,4 +58,18 @@ public static class Vector3dExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public static float SquaredLength(this Vector3d source)
         => source.Dot(source);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion CreateRotation(this Vector3d axis, float angleInDegree)
+        => axis.SquaredLength() != 0.0
+            ? CreateFromAxisAngle(axis, angleInDegree)
+            : Quaternion.Identity;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    private static Quaternion CreateFromAxisAngle(Vector3d axis, float angleInDegree)
+    {
+        var (sin, cos) = System.Math.SinCos(angleInDegree.ToRadians() * 0.5); 
+        axis = axis.Normalize().Multiply((float)sin);
+        return new Quaternion(axis.X, axis.Y, axis.Z, (float)cos).Normalize();
+    }
 }

@@ -230,4 +230,40 @@ public class Vector3dExtensionsFacts
         Assert.Equal(z / value, actual.Z);
     }
 
+    [Theory]
+    [InlineData(0F, 0F, 0F, 0F)]
+    [InlineData(1F, 0F, 0F, 0F)]
+    [InlineData(1F, 2F, 3F, 0F)]
+    [InlineData(0F, 0F, 0F, 1F)]
+    [InlineData(1F, 0F, 0F, 1F)]
+    [InlineData(1F, 2F, 3F, 1F)]
+    [InlineData(0F, 0F, 0F, 90F)]
+    [InlineData(1F, 0F, 0F, 90F)]
+    [InlineData(1F, 2F, 3F, 90F)]
+    [InlineData(0F, 0F, 0F, 180F)]
+    [InlineData(1F, 0F, 0F, 180F)]
+    [InlineData(1F, 2F, 3F, 180F)]
+    [InlineData(0F, 0F, 0F, 360F)]
+    [InlineData(1F, 0F, 0F, 360F)]
+    [InlineData(1F, 2F, 3F, 360F)]
+    public void Creates_rotation_quaternion(float x, float y, float z, float angleInDegree)
+    {
+        // Given
+        var angle = angleInDegree.ToRadians() * 0.5F;
+        var sut = new Vector3d(x, y, z);
+        var axis = sut.Normalize().Multiply((float)System.Math.Sin(angle));
+        var expected =
+            sut.SquaredLength() == 0F
+                ? Quaternion.Identity
+                : new Quaternion(axis.X, axis.Y, axis.Z, (float) System.Math.Cos(angle)).Normalize();
+
+        // When
+        var actual = sut.CreateRotation(angleInDegree);
+        
+        // Then
+        Assert.Equal(expected.X, actual.X);
+        Assert.Equal(expected.Y, actual.Y);
+        Assert.Equal(expected.Z, actual.Z);
+        Assert.Equal(expected.W, actual.W);
+    }
 }
