@@ -84,4 +84,33 @@ public class Vector4dFacts
         Assert.Equal(0.0F, sut.Z);
         Assert.Equal(1.0F, sut.W);
     }
+            
+    [Fact]
+    public void Returns_zero()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.Zero;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+        Assert.Equal(0.0F, sut.W);
+    }    
+    [Fact]
+    public void Returns_one()
+    {
+        // Given
+        
+        // When
+        var sut = Vector4d.One;
+        
+        // Then
+        Assert.Equal(1.0F, sut.X);
+        Assert.Equal(1.0F, sut.Y);
+        Assert.Equal(1.0F, sut.Z);
+        Assert.Equal(1.0F, sut.W);
+    }
 }

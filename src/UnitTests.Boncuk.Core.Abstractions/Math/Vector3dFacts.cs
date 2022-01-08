@@ -65,4 +65,31 @@ public class Vector3dFacts
         Assert.Equal(0.0F, sut.Y);
         Assert.Equal(1.0F, sut.Z);
     }
+        
+    [Fact]
+    public void Returns_zero()
+    {
+        // Given
+        
+        // When
+        var sut = Vector3d.Zero;
+        
+        // Then
+        Assert.Equal(0.0F, sut.X);
+        Assert.Equal(0.0F, sut.Y);
+        Assert.Equal(0.0F, sut.Z);
+    }    
+    [Fact]
+    public void Returns_one()
+    {
+        // Given
+        
+        // When
+        var sut = Vector3d.One;
+        
+        // Then
+        Assert.Equal(1.0F, sut.X);
+        Assert.Equal(1.0F, sut.Y);
+        Assert.Equal(1.0F, sut.Z);
+    }
 }
