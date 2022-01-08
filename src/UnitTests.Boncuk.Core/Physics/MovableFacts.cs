@@ -175,8 +175,11 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(x, y, z);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.Move(direction);
@@ -201,9 +204,12 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(x, y, z);
         sut.Move(direction);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.Move(direction);
@@ -226,8 +232,11 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(distance, 0F, 0F);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveX(distance);
@@ -250,9 +259,12 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(distance, 0F, 0F);
         sut.MoveX(distance);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveX(distance);
@@ -275,8 +287,11 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(0F, distance, 0F);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveY(distance);
@@ -299,9 +314,12 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(0F, distance, 0F);
         sut.MoveY(distance);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveY(distance);
@@ -324,8 +342,11 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(0F, 0F, distance);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveZ(distance);
@@ -348,9 +369,12 @@ public class MovableFacts
     {
         // Given
         var sut = new Movable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
         var direction = new Vector3d(0F, 0F, distance);
         sut.MoveZ(distance);
-        var expected = sut.Position.Add(direction);
+        var expected = sut.Position.Add(direction.Transform(sut.Orientation));
         
         // When
         sut.MoveZ(distance);
