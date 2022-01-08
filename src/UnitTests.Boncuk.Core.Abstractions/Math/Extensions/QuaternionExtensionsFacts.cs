@@ -1,3 +1,4 @@
+using System.Xml.Xsl;
 using Boncuk.Core.Abstractions.Math;
 using Boncuk.Core.Abstractions.Math.Extensions;
 using Xunit;
@@ -49,15 +50,19 @@ public class QuaternionExtensionsFacts
     }
     
     [Theory]
-    [InlineData(1F, 2F, 3F, 4F, 3F, 4F, 5F, 6F, 1F * 3F, 2F * 4F, 3F * 5F, 4F * 6F)]
-    [InlineData(2F, 3F, 4F, 5F, 4F, 5F, 6F, 7F, 2F * 4F, 3F * 5F, 4F * 6F, 5F * 7F)]
-    [InlineData(-1F, -2F, -3F, -4F, -3F, -4F, -5F, -6F, -1F * -3F, -2F * -4F, -3F * -5F, -4F * -6F)]
-    [InlineData(-2F, -3F, -4F, -5F, -4F, -5F, -6F, -7F, -2F * -4F, -3F * -5F, -4F * -6F, -5F * -7F)]
-    public void Multiplies_quaternions(float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float expectedX, float expectedY, float expectedZ, float expectedW)
+    [InlineData(1F, 2F, 3F, 4F, 3F, 4F, 5F, 6F)]
+    [InlineData(2F, 3F, 4F, 5F, 4F, 5F, 6F, 7F)]
+    [InlineData(-1F, -2F, -3F, -4F, -3F, -4F, -5F, -6F)]
+    [InlineData(-2F, -3F, -4F, -5F, -4F, -5F, -6F, -7F)]
+    public void Multiplies_quaternions(float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2)
     {
         // Given
         var sut = new Quaternion(x1, y1, z1, w1);
         var right = new Quaternion(x2, y2, z2, w2);
+        var expectedX = right.W * sut.X + sut.W * right.X + (sut.Y * right.Z - sut.Z * right.Y);
+        var expectedY = right.W * sut.Y + sut.W * right.Y + (sut.Z * right.X - sut.X * right.Z);
+        var expectedZ = right.W * sut.Z + sut.W * right.Z + (sut.X * right.Y - sut.Y * right.X);
+        var expectedW = sut.W * right.W - (sut.X * right.X + sut.Y * right.Y + sut.Z * right.Z);
         
         // When
         var actual = sut.Multiply(right);
@@ -68,27 +73,6 @@ public class QuaternionExtensionsFacts
         Assert.Equal(expectedZ, actual.Z);
         Assert.Equal(expectedW, actual.W);
     }
-    
-    [Theory]
-    [InlineData(1F, 2F, 3F, 4F, 3F, 4F, 5F, 6F, 1F / 3F, 2F / 4F, 3F / 5F, 4F / 6F)]
-    [InlineData(2F, 3F, 4F, 5F, 4F, 5F, 6F, 7F, 2F / 4F, 3F / 5F, 4F / 6F, 5F / 7F)]
-    [InlineData(-1F, -2F, -3F, -4F, -3F, -4F, -5F, -6F, -1F / -3F, -2F / -4F, -3F / -5F, -4F / -6F)]
-    [InlineData(-2F, -3F, -4F, -5F, -4F, -5F, -6F, -7F, -2F / -4F, -3F / -5F, -4F / -6F, -5F / -7F)]
-    public void Divides_quaternions(float x1, float y1, float z1, float w1, float x2, float y2, float z2, float w2, float expectedX, float expectedY, float expectedZ, float expectedW)
-    {
-        // Given
-        var sut = new Quaternion(x1, y1, z1, w1);
-        var right = new Quaternion(x2, y2, z2, w2);
-    
-        // When
-        var actual = sut.Divide(right);
-
-        // Then
-        Assert.Equal(expectedX, actual.X);
-        Assert.Equal(expectedY, actual.Y);
-        Assert.Equal(expectedZ, actual.Z);
-        Assert.Equal(expectedW, actual.W);
-    }    
     
     [Theory]
     [InlineData(1F, 2F, 3F, 4F, 3F, 4F, 5F, 6F, 1F * 3F + 2F * 4F + 3F * 5F + 4F * 6F)]
@@ -193,7 +177,7 @@ public class QuaternionExtensionsFacts
     {
         // Given
         var sut = new Quaternion(x, y, z, w);
-        
+
         // When
         var actual = sut.Multiply(value);
 

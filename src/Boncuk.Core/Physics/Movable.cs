@@ -35,5 +35,5 @@ public class Movable : IMovable
         => Move(new Vector3d(0F, 0F, distance));
 
     public void Move(Vector3d direction)
-        => _position = _position.Add(direction);
+        => _position = _position.Add(direction.Transform(_orientation));
 }
