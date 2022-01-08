@@ -28,5 +28,6 @@ public class Movable : IMovable
 
     public void MoveZ(float distance) => throw new NotImplementedException();
 
-    public void Move(Vector3d direction) => throw new NotImplementedException();
+    public void Move(Vector3d direction)
+        => _position = _position.Add(direction);
 }

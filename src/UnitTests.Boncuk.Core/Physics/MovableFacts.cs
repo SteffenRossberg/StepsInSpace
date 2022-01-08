@@ -160,4 +160,57 @@ public class MovableFacts
         Assert.Equal(expected.Z, sut.Orientation.Z);
         Assert.Equal(expected.W, sut.Orientation.W);
     }
+
+    [Theory]
+    [InlineData(0F, 0F, 0F)]
+    [InlineData(1F, 0F, 0F)]
+    [InlineData(0F, 1F, 0F)]
+    [InlineData(0F, 0F, 1F)]
+    [InlineData(1F, 2F, 3F)]
+    [InlineData(-1F, 0F, 0F)]
+    [InlineData(0F, -1F, 0F)]
+    [InlineData(0F, 0F, -1F)]
+    [InlineData(-1F, -2F, -3F)]
+    public void Moves_movable(float x, float y, float z)
+    {
+        // Given
+        var sut = new Movable();
+        var direction = new Vector3d(x, y, z);
+        var expected = sut.Position.Add(direction);
+        
+        // When
+        sut.Move(direction);
+        
+        // Then
+        Assert.Equal(expected.X, sut.Position.X);
+        Assert.Equal(expected.Y, sut.Position.Y);
+        Assert.Equal(expected.Z, sut.Position.Z);
+    }
+
+    [Theory]
+    [InlineData(0F, 0F, 0F)]
+    [InlineData(1F, 0F, 0F)]
+    [InlineData(0F, 1F, 0F)]
+    [InlineData(0F, 0F, 1F)]
+    [InlineData(1F, 2F, 3F)]
+    [InlineData(-1F, 0F, 0F)]
+    [InlineData(0F, -1F, 0F)]
+    [InlineData(0F, 0F, -1F)]
+    [InlineData(-1F, -2F, -3F)]
+    public void Moves_movable_second_time(float x, float y, float z)
+    {
+        // Given
+        var sut = new Movable();
+        var direction = new Vector3d(x, y, z);
+        sut.Move(direction);
+        var expected = sut.Position.Add(direction);
+        
+        // When
+        sut.Move(direction);
+        
+        // Then
+        Assert.Equal(expected.X, sut.Position.X);
+        Assert.Equal(expected.Y, sut.Position.Y);
+        Assert.Equal(expected.Z, sut.Position.Z);
+    }
 }
