@@ -293,4 +293,87 @@ public class Vector3dExtensionsFacts
         Assert.Equal(expected.Y, actual.Y);
         Assert.Equal(expected.Z, actual.Z);
     }
+
+    [Theory]
+    [InlineData(0F, 0F, 0F)]
+    [InlineData(1F, 0F, 0F)]
+    [InlineData(0F, 1F, 0F)]
+    [InlineData(0F, 0F, 1F)]
+    [InlineData(1F, 1F, 1F)]
+    [InlineData(1F, 2F, 3F)]
+    [InlineData(-1F, 0F, 0F)]
+    [InlineData(0F, -1F, 0F)]
+    [InlineData(0F, 0F, -1F)]
+    [InlineData(-1F, -1F, -1F)]
+    [InlineData(-1F, -2F, -3F)]
+    public void Transforms_vector_using_matrix(float x, float y, float z)
+    {
+        // Given
+        var matrix = new Matrix4d(
+             1F,  2F,  3F,  4F,
+             5F,  6F,  7F,  8F,
+             9F, 10F, 11F, 12F,
+            13F, 14F, 15F, 16F);
+        
+        var sut = new Vector3d(x, y, z);
+
+        var expected = new Vector3d(
+            x * matrix.M00 + y * matrix.M10 + z * matrix.M20 + matrix.M30,
+            x * matrix.M01 + y * matrix.M11 + z * matrix.M21 + matrix.M31,
+            x * matrix.M02 + y * matrix.M12 + z * matrix.M22 + matrix.M32);
+        
+        // When
+        var actual = sut.Transform(matrix);
+        
+        // Then
+        Assert.Equal(expected.X, actual.X);
+        Assert.Equal(expected.Y, actual.Y);
+        Assert.Equal(expected.Z, actual.Z);
+    }
+    
+    [Fact]
+    public void Scales_vector_using_matrix()
+    {
+        // Given
+        var matrix = new Matrix4d(
+            2F, 0F, 0F, 0F,
+            0F, 2F, 0F, 0F,
+            0F, 0F, 2F, 0F,
+            0F, 0F, 0F, 1F);
+        
+        var sut = new Vector3d(2F, 3F, 4F);
+
+        var expected = new Vector3d(4F, 6F, 8F);
+        
+        // When
+        var actual = sut.Transform(matrix);
+        
+        // Then
+        Assert.Equal(expected.X, actual.X);
+        Assert.Equal(expected.Y, actual.Y);
+        Assert.Equal(expected.Z, actual.Z);
+    }
+    
+    [Fact]
+    public void Moves_vector_using_matrix()
+    {
+        // Given
+        var matrix = new Matrix4d(
+            1F, 0F, 0F, 0F,
+            0F, 1F, 0F, 0F,
+            0F, 0F, 1F, 0F,
+            2F, 2F, 2F, 1F);
+        
+        var sut = new Vector3d(1F, 2F, 3F);
+
+        var expected = new Vector3d(3F, 4F, 5F);
+        
+        // When
+        var actual = sut.Transform(matrix);
+        
+        // Then
+        Assert.Equal(expected.X, actual.X);
+        Assert.Equal(expected.Y, actual.Y);
+        Assert.Equal(expected.Z, actual.Z);
+    }
 }
