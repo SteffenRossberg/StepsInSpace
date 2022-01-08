@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 
 namespace Boncuk.Core.Abstractions.Math.Extensions;
@@ -51,4 +52,12 @@ public static class QuaternionExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public static float SquaredLength(this Quaternion source)
         => source.Dot(source);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public static Quaternion Invert(this Quaternion source)
+    {
+        var squaredLength = source.SquaredLength();
+        var factor = squaredLength != 0F ? -(1F / squaredLength) : 1F;
+        return source.Multiply(factor);
+    }
 }
