@@ -99,4 +99,17 @@ public static class Vector3dExtensions
             scale.X, 0, 0, 0,
             0, scale.Y, 0, 0,
             0, 0, scale.Z, 0,
-            0, 0, 0, 1);}
+            0, 0, 0, 1);
+
+    public static Matrix4d LookAt(this Vector3d eye, Vector3d target, Vector3d up)
+    {
+        var z = eye.Subtract(target).Normalize();
+        var x = up.Cross(z).Normalize();
+        var y = z.Cross(x).Normalize();
+        return new(
+            x.X, y.X, z.X, 0,
+            x.Y, y.Y, z.Y, 0,
+            x.Z, y.Z, z.Z, 0,
+            -x.Dot(eye), -y.Dot(eye), -z.Dot(eye), 1);
+    }
+}

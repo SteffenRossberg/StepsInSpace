@@ -38,21 +38,6 @@ public class Matrix4dFactory : IMatrix4dFactory
             row2.X, row2.Y, row2.Z, row2.W,
             row3.X, row3.Y, row3.Z, row3.W);
 
-    public Matrix4d CreateLookAt(
-        Vector3d eye, 
-        Vector3d target, 
-        Vector3d up)
-    {
-        var z = eye.Subtract(target).Normalize();
-        var x = up.Cross(z).Normalize();
-        var y = z.Cross(x).Normalize();
-        return Create(
-            x.X, y.X, z.X, 0,
-            x.Y, y.Y, z.Y, 0,
-            x.Z, y.Z, z.Z, 0,
-            -x.Dot(eye), -y.Dot(eye), -z.Dot(eye), 1);
-    }
-
     public Matrix4d CreatePerspectiveFieldOfView(
         float fovy, 
         float aspect, 
