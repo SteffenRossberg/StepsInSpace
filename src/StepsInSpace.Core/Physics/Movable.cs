@@ -35,4 +35,7 @@ public class Movable : IMovable
 
     public void Move(Vector3d direction)
         => _position = _position.Add(direction.Transform(_orientation));
+
+    public Matrix4d GetModelMatrix()
+        => _orientation.ToRotation().Multiply(_position.ToTranslation());
 }

@@ -465,4 +465,55 @@ public class Vector3dExtensionsFacts
         Assert.Equal(expectedRow3.W, actual.M33);
     }
 
+    [Theory]
+    [InlineData( 0F,  0F,  0F)]
+    [InlineData( 1F,  0F,  0F)]
+    [InlineData( 0F,  1F,  0F)]
+    [InlineData( 0F,  0F,  1F)]
+    [InlineData( 1F,  2F,  3F)]
+    [InlineData(-1F,  0F,  0F)]
+    [InlineData( 0F, -1F,  0F)]
+    [InlineData( 0F,  0F, -1F)]
+    [InlineData(-1F, -2F, -3F)]
+
+    public void Creates_look_at_matrix(float eyeX, float eyeY, float eyeZ)
+    {
+        // Given
+        var sut = new Vector3d(eyeX, eyeY, eyeZ);
+        var target = Vector3d.UnitZ;
+        var up = Vector3d.UnitY;
+
+        var z = sut.Subtract(target).Normalize();
+        var x = up.Cross(z).Normalize();
+        var y = z.Cross(x).Normalize();
+        
+        var expectedRow0 = new Vector4d(x.X, y.X, z.X, 0);
+        var expectedRow1 = new Vector4d(x.Y, y.Y, z.Y, 0);
+        var expectedRow2 = new Vector4d(x.Z, y.Z, z.Z, 0);
+        var expectedRow3 = new Vector4d(-x.Dot(sut), -y.Dot(sut), -z.Dot(sut), 1);
+
+        // When
+        var actual = sut.LookAt(target, up);
+
+        // Then
+        Assert.Equal(expectedRow0.X, actual.M00);
+        Assert.Equal(expectedRow0.Y, actual.M01);
+        Assert.Equal(expectedRow0.Z, actual.M02);
+        Assert.Equal(expectedRow0.W, actual.M03);
+
+        Assert.Equal(expectedRow1.X, actual.M10);
+        Assert.Equal(expectedRow1.Y, actual.M11);
+        Assert.Equal(expectedRow1.Z, actual.M12);
+        Assert.Equal(expectedRow1.W, actual.M13);
+
+        Assert.Equal(expectedRow2.X, actual.M20);
+        Assert.Equal(expectedRow2.Y, actual.M21);
+        Assert.Equal(expectedRow2.Z, actual.M22);
+        Assert.Equal(expectedRow2.W, actual.M23);
+
+        Assert.Equal(expectedRow3.X, actual.M30);
+        Assert.Equal(expectedRow3.Y, actual.M31);
+        Assert.Equal(expectedRow3.Z, actual.M32);
+        Assert.Equal(expectedRow3.W, actual.M33);
+    }
 }
