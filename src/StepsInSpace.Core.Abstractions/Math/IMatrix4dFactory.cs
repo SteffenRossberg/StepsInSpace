@@ -11,8 +11,6 @@ public interface IMatrix4dFactory
     Matrix4d Create(Vector4d row0, Vector4d row1, Vector4d row2, Vector4d row3);
     
     Matrix4d Create(Quaternion row0, Quaternion row1, Quaternion row2, Quaternion row3);
-    
-    Matrix4d CreateTranslation(Vector3d direction);
 
     Matrix4d CreateRotation(Quaternion rotation);
 

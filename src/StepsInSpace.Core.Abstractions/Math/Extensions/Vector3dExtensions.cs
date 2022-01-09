@@ -87,4 +87,10 @@ public static class Vector3dExtensions
             source.X * matrix.M01 + source.Y * matrix.M11 + source.Z * matrix.M21 + matrix.M31,
             source.X * matrix.M02 + source.Y * matrix.M12 + source.Z * matrix.M22 + matrix.M32);
 
+    public static Matrix4d ToTranslation(this Vector3d direction)
+        => new(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            direction.X, direction.Y, direction.Z, 1);
 }

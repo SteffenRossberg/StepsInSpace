@@ -38,13 +38,6 @@ public class Matrix4dFactory : IMatrix4dFactory
             row2.X, row2.Y, row2.Z, row2.W,
             row3.X, row3.Y, row3.Z, row3.W);
 
-    public Matrix4d CreateTranslation(Vector3d direction)
-        => Create(
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            direction.X, direction.Y, direction.Z, 1);
-
     public Matrix4d CreateRotation(Quaternion rotation)
     {
         var squareRotation = rotation.Multiply(rotation);
