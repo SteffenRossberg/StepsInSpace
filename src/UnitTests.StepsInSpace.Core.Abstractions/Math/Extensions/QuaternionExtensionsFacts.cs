@@ -231,4 +231,68 @@ public class QuaternionExtensionsFacts
         Assert.Equal(expectedZ, actual.Z);
         Assert.Equal(expectedW, actual.W);
     }
+    
+        
+    [Theory]
+    [InlineData(0F, 0F, 0F, 0F)]
+    [InlineData(1F, 2F, 3F, 4F)]
+    [InlineData(-1F, -2F, -3F, -4F)]
+    [InlineData(0.1F, 0.2F, 0.3F, 0.4F)]
+    [InlineData(-0.1F, -0.2F, -0.3F, -0.4F)]
+    [InlineData(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue)]
+    [InlineData(float.MinValue, float.MinValue, float.MinValue, float.MinValue)]
+    public void Creates_rotation_matrix(float x, float y, float z, float w)
+    {
+        // Given
+        var sut = new Quaternion(x, y, z, w);
+        var squareRotation = sut.Multiply(sut);
+        var xy = sut.X * sut.Y;
+        var xz = sut.X * sut.Z;
+        var xw = sut.X * sut.W;
+        var yz = sut.Y * sut.Z;
+        var yw = sut.Y * sut.W;
+        var zw = sut.Z * sut.W;
+        var s2 = 2f / (squareRotation.X + squareRotation.Y + squareRotation.Z + squareRotation.W);
+        var row0 = new Vector4d(
+            1f - (s2 * (squareRotation.Y + squareRotation.Z)),
+            s2 * (xy + zw),
+            s2 * (xz - yw),
+            0);
+        var row1 = new Vector4d(
+            s2 * (xy - zw),
+            1f - (s2 * (squareRotation.X + squareRotation.Z)),
+            s2 * (yz + xw),
+            0);
+        var row2 = new Vector4d(
+            s2 * (xz + yw),
+            s2 * (yz - xw),
+            1f - (s2 * (squareRotation.X + squareRotation.Y)),
+            0);
+        var row3 = Vector4d.UnitW;
+        
+        // When
+        var actual = sut.ToRotation();
+
+        // Then
+        Assert.Equal(row0.X, actual.M00);
+        Assert.Equal(row0.Y, actual.M01);
+        Assert.Equal(row0.Z, actual.M02);
+        Assert.Equal(row0.W, actual.M03);
+
+        Assert.Equal(row1.X, actual.M10);
+        Assert.Equal(row1.Y, actual.M11);
+        Assert.Equal(row1.Z, actual.M12);
+        Assert.Equal(row1.W, actual.M13);
+
+        Assert.Equal(row2.X, actual.M20);
+        Assert.Equal(row2.Y, actual.M21);
+        Assert.Equal(row2.Z, actual.M22);
+        Assert.Equal(row2.W, actual.M23);
+
+        Assert.Equal(row3.X, actual.M30);
+        Assert.Equal(row3.Y, actual.M31);
+        Assert.Equal(row3.Z, actual.M32);
+        Assert.Equal(row3.W, actual.M33);
+    }
+
 }
