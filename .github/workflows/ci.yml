@@ -1,0 +1,28 @@
+name: CI StepsInSpace
+
+on:
+  push:
+    branches: [ master, dev, feature/*, hotfix/*, release/* ]
+  pull_request:
+    branches: [ master, dev, feature/*, hotfix/*, release/* ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      working-directory: ./src
+      run: dotnet restore StepsInSpace.sln
+    - name: Build
+      working-directory: ./src
+      run: dotnet build StepsInSpace.sln --no-restore
+    - name: Test
+      working-directory: ./src
+      run: dotnet test StepsInSpace.sln --no-build --verbosity normal
