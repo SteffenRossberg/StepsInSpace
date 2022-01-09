@@ -3,7 +3,7 @@
 # StepsInSpace
 
 My goal is to build a simple cross-platform game engine with some physics, collision detection and 3D graphics driven by the [OpenTK](https://opentk.net/) framework.
-Finally, it should end in a simple 3D driving simulation with a track editor like the game "Stunts" of the great early days of 3D gaming.
+Finally, it should end in a simple 3D driving simulation with a track editor like in the great early days of 3D gaming.
 
 ## Prerequisites
 
