@@ -1,3 +1,4 @@
+![StepsInSpace](assets/logo.png) 
 
 # StepsInSpace
 
