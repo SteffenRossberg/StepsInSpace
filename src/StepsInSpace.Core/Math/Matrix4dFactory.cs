@@ -38,39 +38,6 @@ public class Matrix4dFactory : IMatrix4dFactory
             row2.X, row2.Y, row2.Z, row2.W,
             row3.X, row3.Y, row3.Z, row3.W);
 
-    public Matrix4d CreateRotation(Quaternion rotation)
-    {
-        var squareRotation = rotation.Multiply(rotation);
-        var xy = rotation.X * rotation.Y;
-        var xz = rotation.X * rotation.Z;
-        var xw = rotation.X * rotation.W;
-        var yz = rotation.Y * rotation.Z;
-        var yw = rotation.Y * rotation.W;
-        var zw = rotation.Z * rotation.W;
-        var s2 = 2F / (squareRotation.X + squareRotation.Y + squareRotation.Z + squareRotation.W);
-        var m00 = 1F - (s2 * (squareRotation.Y + squareRotation.Z));
-        var m01 = s2 * (xy + zw);
-        var m02 = s2 * (xz - yw);
-        var m03 = 0F;
-        var m10 = s2 * (xy - zw);
-        var m11 = 1f - (s2 * (squareRotation.X + squareRotation.Z));
-        var m12 = s2 * (yz + xw);
-        var m13 = 0F;
-        var m20 = s2 * (xz + yw);
-        var m21 = s2 * (yz - xw);
-        var m22 = 1F - (s2 * (squareRotation.X + squareRotation.Y));
-        var m23 = 0F;
-        var m30 = 0F;
-        var m31 = 0F;
-        var m32 = 0F;
-        var m33 = 1F;
-        return Create(
-            m00, m01, m02, m03,
-            m10, m11, m12, m13,
-            m20, m21, m22, m23,
-            m30, m31, m32, m33);
-    }
-
     public Matrix4d CreateLookAt(
         Vector3d eye, 
         Vector3d target, 
