@@ -93,4 +93,10 @@ public static class Vector3dExtensions
             0, 1, 0, 0,
             0, 0, 1, 0,
             direction.X, direction.Y, direction.Z, 1);
-}
+    
+    public static Matrix4d ToScale(this Vector3d scale)
+        => new(
+            scale.X, 0, 0, 0,
+            0, scale.Y, 0, 0,
+            0, 0, scale.Z, 0,
+            0, 0, 0, 1);}

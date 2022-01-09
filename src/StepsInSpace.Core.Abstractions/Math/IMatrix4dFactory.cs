@@ -14,8 +14,6 @@ public interface IMatrix4dFactory
 
     Matrix4d CreateRotation(Quaternion rotation);
 
-    Matrix4d CreateScale(Vector3d scale);
-
     Matrix4d CreateLookAt(Vector3d eye, Vector3d target, Vector3d up);
 
     Matrix4d CreatePerspectiveFieldOfView(float fovy, float aspect, float near, float far);

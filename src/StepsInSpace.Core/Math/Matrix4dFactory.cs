@@ -71,13 +71,6 @@ public class Matrix4dFactory : IMatrix4dFactory
             m30, m31, m32, m33);
     }
 
-    public Matrix4d CreateScale(Vector3d scale)
-        => Create(
-            scale.X, 0, 0, 0,
-            0, scale.Y, 0, 0,
-            0, 0, scale.Z, 0,
-            0, 0, 0, 1);
-
     public Matrix4d CreateLookAt(
         Vector3d eye, 
         Vector3d target, 
