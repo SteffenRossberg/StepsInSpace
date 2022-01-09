@@ -392,4 +392,49 @@ public class MovableFacts
         Assert.Equal(expected.Y, sut.Position.Y);
         Assert.Equal(expected.Z, sut.Position.Z);
     }
+    
+    [Theory]
+    [InlineData(0F, 0F, 0F)]
+    [InlineData(1F, 0F, 0F)]
+    [InlineData(0F, 1F, 0F)]
+    [InlineData(0F, 0F, 1F)]
+    [InlineData(1F, 2F, 3F)]
+    [InlineData(-1F, 0F, 0F)]
+    [InlineData(0F, -1F, 0F)]
+    [InlineData(0F, 0F, -1F)]
+    [InlineData(-1F, -2F, -3F)]
+    public void Gets_model_matrix(float x, float y, float z)
+    {
+        // Given
+        var sut = _createMovable();
+        sut.Pitch(10);
+        sut.Yaw(20);
+        sut.Roll(30);
+        sut.Move(new Vector3d(x, y, z));
+        var expected = sut.Orientation.ToRotation().Multiply(sut.Position.ToTranslation());
+        
+        // When
+        var actual = sut.GetModelMatrix();
+        
+        // Then
+        Assert.Equal(expected.M00, actual.M00);
+        Assert.Equal(expected.M01, actual.M01);
+        Assert.Equal(expected.M02, actual.M02);
+        Assert.Equal(expected.M03, actual.M03);
+
+        Assert.Equal(expected.M10, actual.M10);
+        Assert.Equal(expected.M11, actual.M11);
+        Assert.Equal(expected.M12, actual.M12);
+        Assert.Equal(expected.M13, actual.M13);
+
+        Assert.Equal(expected.M20, actual.M20);
+        Assert.Equal(expected.M21, actual.M21);
+        Assert.Equal(expected.M22, actual.M22);
+        Assert.Equal(expected.M23, actual.M23);
+
+        Assert.Equal(expected.M30, actual.M30);
+        Assert.Equal(expected.M31, actual.M31);
+        Assert.Equal(expected.M32, actual.M32);
+        Assert.Equal(expected.M33, actual.M33);
+    }
 }

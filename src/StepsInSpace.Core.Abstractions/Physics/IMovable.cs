@@ -21,4 +21,6 @@ public interface IMovable
     void MoveZ(float distance);
 
     void Move(Vector3d direction);
+
+    Matrix4d GetModelMatrix();
 }
