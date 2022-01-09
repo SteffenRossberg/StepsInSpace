@@ -1,5 +1,3 @@
-using System;
-using Boncuk.Core.Abstractions.Math;
 using Boncuk.Core.Abstractions.Math.Extensions;
 
 namespace Boncuk.Core.Abstractions.Collision.Extensions;

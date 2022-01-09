@@ -1,4 +1,3 @@
-using System;
 using Boncuk.Core.Abstractions.Math;
 using Boncuk.Core.Abstractions.Math.Extensions;
 using Boncuk.Core.Abstractions.Physics;

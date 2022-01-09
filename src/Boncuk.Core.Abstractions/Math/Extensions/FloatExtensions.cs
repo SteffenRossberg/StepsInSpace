@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.CompilerServices;
 
 namespace Boncuk.Core.Abstractions.Math.Extensions;
