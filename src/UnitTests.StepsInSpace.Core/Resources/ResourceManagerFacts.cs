@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using Moq;
 using StepsInSpace.Core.Abstractions.Resources;
 using StepsInSpace.Core.Resources;
@@ -49,4 +50,24 @@ public class ResourceManagerFacts
         // Then
         Assert.Equal(expectedData, actualData);
     }
+    
+    [Fact]
+    public void Gets_text_data()
+    {
+        // Given
+        var file = "assets/shader.glsl";
+        var expectedText = "int main() {return 0;}";
+        var textData = new UTF8Encoding(false, true).GetBytes(expectedText);
+        _fileSystemProviderMock
+            .Setup(provider => provider.ReadFile(file))
+            .Returns(() => textData);
+        var sut = _createResourceManager();
+        
+        // When
+        var actualText = sut.GetTextData(file);
+        
+        // Then
+        Assert.Equal(expectedText, actualText);
+    }
+
 }

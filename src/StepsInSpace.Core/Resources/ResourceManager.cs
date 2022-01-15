@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Text;
 using StepsInSpace.Core.Abstractions.Resources;
 
 namespace StepsInSpace.Core.Resources;
@@ -11,6 +12,7 @@ public class ResourceManager : IResourceManager
     {
         _fileSystemProvider = fileSystemProvider;
         _bitmapExtractor = bitmapExtractor;
+        _encoding = new UTF8Encoding(false, true);
     }
     
     public byte[] GetTextureData(string file)
@@ -19,7 +21,15 @@ public class ResourceManager : IResourceManager
         var extracted = _bitmapExtractor.ExtractPixelData(raw);
         return extracted;
     }
-    
+
+    public string GetTextData(string file)
+    {
+        var raw = _fileSystemProvider.ReadFile(file);
+        var text = _encoding.GetString(raw);
+        return text;
+    }
+
     private readonly IFileSystemProvider _fileSystemProvider;
     private readonly IBitmapExtractor _bitmapExtractor;
+    private readonly UTF8Encoding _encoding;
 }
