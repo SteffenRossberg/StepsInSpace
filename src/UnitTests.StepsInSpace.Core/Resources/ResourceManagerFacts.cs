@@ -35,12 +35,8 @@ public class ResourceManagerFacts
             .Setup(provider => provider.ReadFile(file))
             .Returns(() => logoData);
         _bitmapExtractorMock
-            .Setup(extractor =>
-                extractor.ExtractPixelData(
-                    It.Is<byte[]>(data =>
-                        logoData
-                            .Zip(data, (expected, actual) => Equals(expected, actual))
-                            .All(isMatch => isMatch))))
+            .Setup(extractor => extractor.ExtractPixelData(
+                It.Is<byte[]>(data => logoData.SequenceEqual(data))))
             .Returns(() => expectedData);
         var sut = _createResourceManager();
         
