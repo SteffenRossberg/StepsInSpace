@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using Moq;
 using StepsInSpace.Core.Abstractions.Resources;
@@ -28,10 +27,11 @@ public class ResourceManagerFacts
     public void Gets_pixel_data()
     {
         // Given
+        var file = "assets/logo.png";
         var logoData = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         var expectedData = new byte[] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
         _fileSystemProviderMock
-            .Setup(provider => provider.ReadFile("assets/logo.png"))
+            .Setup(provider => provider.ReadFile(file))
             .Returns(() => logoData);
         _bitmapExtractorMock
             .Setup(extractor =>
@@ -44,7 +44,7 @@ public class ResourceManagerFacts
         var sut = _createResourceManager();
         
         // When
-        var actualData = sut.GetTextureData("assets/logo.png");
+        var actualData = sut.GetTextureData(file);
         
         // Then
         Assert.Equal(expectedData, actualData);
