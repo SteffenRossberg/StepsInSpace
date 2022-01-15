@@ -34,13 +34,11 @@ public class ResourceManager : IResourceManager
     {
         var content = GetTextData(file);
         var lines = new List<string>();
-        using (var reader = new StringReader(content))
+        using var reader = new StringReader(content);
+        string? line;
+        while ((line = reader.ReadLine()) != null)
         {
-            string? line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                lines.Add(line);
-            }
+            lines.Add(line);
         }
         return lines.ToArray();
     }
