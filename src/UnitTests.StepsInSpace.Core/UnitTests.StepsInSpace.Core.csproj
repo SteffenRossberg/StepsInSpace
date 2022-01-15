@@ -16,6 +16,9 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="Moq" Version="4.16.1" />
+        <PackageReference Include="SkiaSharp" Version="2.80.3" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -30,6 +33,12 @@
     <ItemGroup>
       <ProjectReference Include="..\StepsInSpace.Core.Abstractions\StepsInSpace.Core.Abstractions.csproj" />
       <ProjectReference Include="..\StepsInSpace.Core\StepsInSpace.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="assets\logo.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

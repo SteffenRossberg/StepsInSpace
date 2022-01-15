@@ -8,14 +8,21 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OutputPath>../../artifacts/Debug/</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OutputPath>../../artifacts/Release/</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\StepsInSpace.Core.Abstractions\StepsInSpace.Core.Abstractions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="SkiaSharp" Version="2.80.3" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.80.3" />
     </ItemGroup>
 
 </Project>
