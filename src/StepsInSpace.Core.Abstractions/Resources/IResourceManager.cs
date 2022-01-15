@@ -5,4 +5,6 @@ public interface IResourceManager
     byte[] GetTextureData(string file);
 
     string GetTextData(string file);
+
+    string[] GetTextLines(string file);
 }

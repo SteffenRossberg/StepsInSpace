@@ -35,12 +35,8 @@ public class ResourceManagerFacts
             .Setup(provider => provider.ReadFile(file))
             .Returns(() => logoData);
         _bitmapExtractorMock
-            .Setup(extractor =>
-                extractor.ExtractPixelData(
-                    It.Is<byte[]>(data =>
-                        logoData
-                            .Zip(data, (expected, actual) => Equals(expected, actual))
-                            .All(isMatch => isMatch))))
+            .Setup(extractor => extractor.ExtractPixelData(
+                It.Is<byte[]>(data => logoData.SequenceEqual(data))))
             .Returns(() => expectedData);
         var sut = _createResourceManager();
         
@@ -69,5 +65,32 @@ public class ResourceManagerFacts
         // Then
         Assert.Equal(expectedText, actualText);
     }
-
+    
+    [Theory]
+    [InlineData("\n")]
+    [InlineData("\r\n")]
+    public void Gets_text_lines(string newLine)
+    {
+        // Given
+        var file = "assets/shader.glsl";
+        var expectedLines = new[]
+        {
+            "int main()",
+            "{",
+            "   return 0;",
+            "}"
+        };
+        var text = string.Join(newLine, expectedLines);
+        var textData = new UTF8Encoding(false, true).GetBytes(text);
+        _fileSystemProviderMock
+            .Setup(provider => provider.ReadFile(file))
+            .Returns(() => textData);
+        var sut = _createResourceManager();
+        
+        // When
+        var actualLines = sut.GetTextLines(file);
+        
+        // Then
+        Assert.Equal(expectedLines, actualLines);
+    }
 }
