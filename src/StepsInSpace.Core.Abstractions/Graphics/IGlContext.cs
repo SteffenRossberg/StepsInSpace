@@ -76,19 +76,19 @@ public interface IGlContext
     void Finish();
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void GenBuffers(int n, out int buffers);
+    int GenBuffers(int n);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void GenTextures(int n, out int textures);
+    int GenTextures(int n);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void GenVertexArrays(int n, out int arrays);
+    int GenVertexArrays(int n);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     string GetProgramInfoLog(int program);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void GetShader(int shader, ShaderParameter parameterName, out int parameter);
+    int GetShader(int shader, ShaderParameter parameterName);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     string GetShaderInfoLog(int shader);
@@ -103,18 +103,18 @@ public interface IGlContext
     void ShaderSource(int shader, string code);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void TexImage2D<T8>(TextureTarget target, int level, PixelInternalFormat internalformat, 
-        int width, int height, int border, PixelFormat format, PixelType type, [In, Out] T8[] pixels) 
-        where T8 : struct;
+    void TexImage2D<T>(TextureTarget target, int level, PixelInternalFormat internalformat, 
+        int width, int height, int border, PixelFormat format, PixelType type, [In, Out] T[] pixels) 
+        where T : struct;
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void TexParameter(TextureTarget target, TextureParameterName pname, int param);
+    void TexParameter(TextureTarget target, TextureParameterName parameterName, int param);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     void Uniform1(int location, int v0);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    void UniformMatrix4(int location, bool transpose, ref Matrix4 matrix);
+    Matrix4 UniformMatrix4(int location, bool transpose, Matrix4 matrix);
     
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     void UseProgram(int program);
