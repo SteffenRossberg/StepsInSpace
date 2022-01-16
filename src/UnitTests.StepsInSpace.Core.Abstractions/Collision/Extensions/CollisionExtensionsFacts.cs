@@ -151,6 +151,7 @@ public class CollisionExtensionsFacts
     [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  2F, 0F, 0F, 1F,   1F, 0F, 0F,        1F, 0F, 0F)]
     [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  3F, 0F, 0F, 1F,   2F, 0F, 0F,        2F, 0F, 0F)]
     [InlineData(0F, 0F, 0F,  1F, 0F, 0F,  -3F, 0F, 0F, 1F,  null, null, null,  null, null, null)]
+    [InlineData(1F, 0F, 0F,  0F, 1F, 0F,  0F, 0F, 0F, 0.5F,  null, null, null,  null, null, null)]
     public void Get_intersection_from_ray_to_sphere(
         float originX, float originY, float originZ,
         float directionX, float directionY, float directionZ,
