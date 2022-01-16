@@ -43,7 +43,7 @@ public static class TriangleExtensions
             source.C.X, source.C.Y, source.C.Z,
         };
 
-    public static float[] ToUvArray(this Triangle source)
+    public static float[] ToTextureArray(this Triangle source)
         => new[]
         {
             source.TextureA.X, source.TextureA.Y,
@@ -61,12 +61,12 @@ public static class TriangleExtensions
         return vertices;
     }
 
-    public static float[] ToUvArray(this IEnumerable<Triangle> source)
+    public static float[] ToTextureArray(this IEnumerable<Triangle> source)
     {
         var vertices = 
             source
                 .AsParallel()
-                .SelectMany(ToUvArray)
+                .SelectMany(ToTextureArray)
                 .ToArray();
         return vertices;
     }

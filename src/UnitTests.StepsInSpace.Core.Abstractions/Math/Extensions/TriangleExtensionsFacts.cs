@@ -169,7 +169,7 @@ public class TriangleExtensionsFacts
         };
         
         // When
-        var actual = sut.ToUvArray();
+        var actual = sut.ToTextureArray();
         
         // Then
         Assert.Equal(expected, actual);
@@ -220,7 +220,7 @@ public class TriangleExtensionsFacts
         };
         
         // When
-        var actual = sut.ToUvArray();
+        var actual = sut.ToTextureArray();
         
         // Then
         Assert.Equal(expected, actual);
