@@ -16,4 +16,8 @@
         <OutputPath>../../artifacts/Release/</OutputPath>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="OpenTK" Version="4.6.7" />
+    </ItemGroup>
+
 </Project>
