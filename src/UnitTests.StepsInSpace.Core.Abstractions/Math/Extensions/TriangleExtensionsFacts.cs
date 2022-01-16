@@ -1,3 +1,4 @@
+using OpenTK.Graphics.OpenGL;
 using StepsInSpace.Core.Abstractions.Math;
 using StepsInSpace.Core.Abstractions.Math.Extensions;
 using Xunit;
@@ -49,5 +50,32 @@ public class TriangleExtensionsFacts
         Assert.Equal(sut.TextureB.Y, actual.TextureB.Y);
         Assert.Equal(sut.TextureC.X, actual.TextureC.X);
         Assert.Equal(sut.TextureC.Y, actual.TextureC.Y);
+    }
+
+    [Theory]
+    [InlineData(1F, 1F, 0F, 2F, 1F, 0F, 1F, 2F, 0F, 1.1F, 1.1F, 0F, true)]
+    [InlineData(1F, 1F, 0F, 2F, 1F, 0F, 1F, 2F, 0F, -1.1F, 1.1F, 0F, false)]
+    [InlineData(1F, 1F, 0F, 2F, 1F, 0F, 1F, 2F, 0F, 1.1F, -1.1F, 0F, false)]
+    [InlineData(1F, 1F, 0F, 2F, 1F, 0F, 1F, 2F, 0F, -1.1F, -1.1F, 0F, false)]
+    public void Checks_if_point_is_inside_or_not(
+        float ax, float ay, float az,
+        float bx, float by, float bz,
+        float cx, float cy, float cz,
+        float px, float py, float pz,
+        bool expected)
+    {
+        // Given
+        var sut = new Triangle(
+            new Vector3d(ax, ay, az),
+            new Vector3d(bx, by, bz),
+            new Vector3d(cx, cy, cz));
+
+        var point = new Vector3d(px, py, pz);
+        
+        // When
+        var actual = sut.IsPointInside(point);
+        
+        // Then
+        Assert.Equal(expected, actual);
     }
 }
