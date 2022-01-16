@@ -2,7 +2,7 @@ using StepsInSpace.Core.Abstractions.Collision;
 
 namespace StepsInSpace.Core.Abstractions.Math;
 
-public struct Triangle
+public readonly struct Triangle
 {
     public readonly Vector3d A;
     public readonly Vector3d B;
