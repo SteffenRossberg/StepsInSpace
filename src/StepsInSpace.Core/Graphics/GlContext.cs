@@ -77,20 +77,35 @@ public class GlContext : IGlContext
     public void Finish() => GL.Finish();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void GenBuffers(int n, out int buffers) => GL.GenBuffers(n, out buffers);
+    public int GenBuffers(int n)
+    {
+        GL.GenBuffers(n, out int buffers);
+        return buffers;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void GenTextures(int n, out int textures) => GL.GenTextures(n, out textures);
+    public int GenTextures(int n)
+    {
+        GL.GenTextures(n, out int textures);
+        return textures;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void GenVertexArrays(int n, out int arrays) => GL.GenVertexArrays(n, out arrays);
+    public int GenVertexArrays(int n)
+    {
+        GL.GenVertexArrays(n, out int arrays);
+        return arrays;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public string GetProgramInfoLog(int program) => GL.GetProgramInfoLog(program);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void GetShader(int shader, ShaderParameter parameterName, out int parameter) 
-        => GL.GetShader(shader, parameterName, out parameter);
+    public int GetShader(int shader, ShaderParameter parameterName)
+    {
+        GL.GetShader(shader, parameterName, out int parameter);
+        return parameter;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public string GetShaderInfoLog(int shader) => GL.GetShaderInfoLog(shader);
@@ -118,8 +133,11 @@ public class GlContext : IGlContext
     public void Uniform1(int location, int v0) => GL.Uniform1(location, v0);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void UniformMatrix4(int location, bool transpose, ref Matrix4 matrix) 
-        => GL.UniformMatrix4(location, transpose, ref matrix);
+    public Matrix4 UniformMatrix4(int location, bool transpose, Matrix4 matrix)
+    {
+        GL.UniformMatrix4(location, transpose, ref matrix);
+        return matrix;
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void UseProgram(int program) => GL.UseProgram(program);
