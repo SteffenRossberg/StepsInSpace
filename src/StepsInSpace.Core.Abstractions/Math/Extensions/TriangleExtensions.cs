@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StepsInSpace.Core.Abstractions.Math.Extensions;
 
@@ -34,7 +35,7 @@ public static class TriangleExtensions
         return u >= 0F && v >= 0F && u + v < 1F;
     }
 
-    public static float[] ToArray(this Triangle source)
+    public static float[] ToVertexArray(this Triangle source)
         => new[]
         {
             source.A.X, source.A.Y, source.A.Z,
@@ -42,4 +43,31 @@ public static class TriangleExtensions
             source.C.X, source.C.Y, source.C.Z,
         };
 
+    public static float[] ToTextureArray(this Triangle source)
+        => new[]
+        {
+            source.TextureA.X, source.TextureA.Y,
+            source.TextureB.X, source.TextureB.Y,
+            source.TextureC.X, source.TextureC.Y,
+        };
+
+    public static float[] ToVertexArray(this IEnumerable<Triangle> source)
+    {
+        var vertices = 
+            source
+                .AsParallel()
+                .SelectMany(ToVertexArray)
+                .ToArray();
+        return vertices;
+    }
+
+    public static float[] ToTextureArray(this IEnumerable<Triangle> source)
+    {
+        var vertices = 
+            source
+                .AsParallel()
+                .SelectMany(ToTextureArray)
+                .ToArray();
+        return vertices;
+    }
 }
