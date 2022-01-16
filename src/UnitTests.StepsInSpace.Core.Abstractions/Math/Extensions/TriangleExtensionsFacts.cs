@@ -174,4 +174,55 @@ public class TriangleExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+   
+    [Fact]
+    public void Converts_to_texture_uv_array()
+    {
+        // Given
+        var triangle1 = new Triangle(
+            new Vector3d(-1F, 2F, 3F),
+            new Vector3d(4F, -5F, 6F),
+            new Vector3d(7F, 8F, -9F),
+            new Vector2d(0F, 0F),
+            new Vector2d(1F, 0F),
+            new Vector2d(0F, 1F));
+        var triangle2 = new Triangle(
+            new Vector3d(1F, 2F, -3F),
+            new Vector3d(-4F, 5F, 6F),
+            new Vector3d(7F, -8F, 9F),
+            new Vector2d(1F, 1F),
+            new Vector2d(1F, 0F),
+            new Vector2d(0F, 1F));
+        var triangle3 = new Triangle(
+            new Vector3d(1F, -2F, 3F),
+            new Vector3d(4F, 5F, -6F),
+            new Vector3d(-7F, 8F, 9F),
+            new Vector2d(0F, 1F),
+            new Vector2d(1F, 0F),
+            new Vector2d(1F, 1F));
+        var expected = new[]
+        {
+            triangle1.TextureA.X, triangle1.TextureA.Y,
+            triangle1.TextureB.X, triangle1.TextureB.Y,
+            triangle1.TextureC.X, triangle1.TextureC.Y,
+            triangle2.TextureA.X, triangle2.TextureA.Y,
+            triangle2.TextureB.X, triangle2.TextureB.Y,
+            triangle2.TextureC.X, triangle2.TextureC.Y,
+            triangle3.TextureA.X, triangle3.TextureA.Y,
+            triangle3.TextureB.X, triangle3.TextureB.Y,
+            triangle3.TextureC.X, triangle3.TextureC.Y,
+        };
+        var sut = new[]
+        {
+            triangle1,
+            triangle2,
+            triangle3,
+        };
+        
+        // When
+        var actual = sut.ToUvArray();
+        
+        // Then
+        Assert.Equal(expected, actual);
+    }
 }

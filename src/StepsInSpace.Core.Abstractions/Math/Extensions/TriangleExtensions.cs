@@ -60,4 +60,14 @@ public static class TriangleExtensions
                 .ToArray();
         return vertices;
     }
+
+    public static float[] ToUvArray(this IEnumerable<Triangle> source)
+    {
+        var vertices = 
+            source
+                .AsParallel()
+                .SelectMany(ToUvArray)
+                .ToArray();
+        return vertices;
+    }
 }
