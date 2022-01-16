@@ -107,4 +107,46 @@ public class TriangleExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void Converts_to_vertex_array()
+    {
+        // Given
+        var triangle1 = new Triangle(
+            new Vector3d(-1F, 2F, 3F),
+            new Vector3d(4F, -5F, 6F),
+            new Vector3d(7F, 8F, -9F));
+        var triangle2 = new Triangle(
+            new Vector3d(1F, 2F, -3F),
+            new Vector3d(-4F, 5F, 6F),
+            new Vector3d(7F, -8F, 9F));
+        var triangle3 = new Triangle(
+            new Vector3d(1F, -2F, 3F),
+            new Vector3d(4F, 5F, -6F),
+            new Vector3d(-7F, 8F, 9F));
+        var expected = new[]
+        {
+            triangle1.A.X, triangle1.A.Y, triangle1.A.Z,
+            triangle1.B.X, triangle1.B.Y, triangle1.B.Z,
+            triangle1.C.X, triangle1.C.Y, triangle1.C.Z,
+            triangle2.A.X, triangle2.A.Y, triangle2.A.Z,
+            triangle2.B.X, triangle2.B.Y, triangle2.B.Z,
+            triangle2.C.X, triangle2.C.Y, triangle2.C.Z,
+            triangle3.A.X, triangle3.A.Y, triangle3.A.Z,
+            triangle3.B.X, triangle3.B.Y, triangle3.B.Z,
+            triangle3.C.X, triangle3.C.Y, triangle3.C.Z,
+        };
+        var sut = new[]
+        {
+            triangle1,
+            triangle2,
+            triangle3,
+        };
+        
+        // When
+        var actual = sut.ToVertexArray();
+        
+        // Then
+        Assert.Equal(expected, actual);
+    }
 }

@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StepsInSpace.Core.Abstractions.Math.Extensions;
 
@@ -42,4 +43,13 @@ public static class TriangleExtensions
             source.C.X, source.C.Y, source.C.Z,
         };
 
+    public static float[] ToVertexArray(this IEnumerable<Triangle> source)
+    {
+        var vertices = 
+            source
+                .AsParallel()
+                .SelectMany(ToArray)
+                .ToArray();
+        return vertices;
+    }
 }
