@@ -35,7 +35,7 @@ public static class TriangleExtensions
         return u >= 0F && v >= 0F && u + v < 1F;
     }
 
-    public static float[] ToArray(this Triangle source)
+    public static float[] ToVertexArray(this Triangle source)
         => new[]
         {
             source.A.X, source.A.Y, source.A.Z,
@@ -56,7 +56,7 @@ public static class TriangleExtensions
         var vertices = 
             source
                 .AsParallel()
-                .SelectMany(ToArray)
+                .SelectMany(ToVertexArray)
                 .ToArray();
         return vertices;
     }

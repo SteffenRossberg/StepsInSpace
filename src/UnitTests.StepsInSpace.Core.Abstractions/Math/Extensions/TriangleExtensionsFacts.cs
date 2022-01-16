@@ -102,7 +102,7 @@ public class TriangleExtensionsFacts
         };
         
         // When
-        var actual = sut.ToArray();
+        var actual = sut.ToVertexArray();
         
         // Then
         Assert.Equal(expected, actual);
