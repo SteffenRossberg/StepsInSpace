@@ -149,4 +149,29 @@ public class TriangleExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+    
+    [Fact]
+    public void Converts_to_vertex_uv_array()
+    {
+        // Given
+        var sut = new Triangle(
+            new Vector3d(-1F, 2F, 3F),
+            new Vector3d(4F, -5F, 6F),
+            new Vector3d(7F, 8F, -9F),
+            new Vector2d(0F, 0F),
+            new Vector2d(1F, 0F),
+            new Vector2d(0F, 1F));
+        var expected = new[]
+        {
+            sut.TextureA.X, sut.TextureA.Y,
+            sut.TextureB.X, sut.TextureB.Y,
+            sut.TextureC.X, sut.TextureC.Y,
+        };
+        
+        // When
+        var actual = sut.ToUvArray();
+        
+        // Then
+        Assert.Equal(expected, actual);
+    }
 }
