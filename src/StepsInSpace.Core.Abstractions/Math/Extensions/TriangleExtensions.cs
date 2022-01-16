@@ -33,4 +33,13 @@ public static class TriangleExtensions
 
         return u >= 0F && v >= 0F && u + v < 1F;
     }
+
+    public static float[] ToArray(this Triangle source)
+        => new[]
+        {
+            source.A.X, source.A.Y, source.A.Z,
+            source.B.X, source.B.Y, source.B.Z,
+            source.C.X, source.C.Y, source.C.Z,
+        };
+
 }

@@ -78,4 +78,33 @@ public class TriangleExtensionsFacts
         // Then
         Assert.Equal(expected, actual);
     }
+
+    [Theory]
+    [InlineData(1F, 2F, 3F, 4F, 5F, 6F, 7F, 8F, 9F)]
+    [InlineData(-1F, -2F, -3F, -4F, -5F, -6F, -7F, -8F, -9F)]
+    [InlineData(9F, 8F, 7F, 6F, 5F, 4F, 3F, 2F, 1F)]
+    [InlineData(-9F, -8F, -7F, -6F, -5F, -4F, -3F, -2F, -1F)]
+    public void Returns_coordinates_array(
+        float ax, float ay, float az,
+        float bx, float by, float bz,
+        float cx, float cy, float cz)
+    {
+        // Given
+        var sut = new Triangle(
+            new Vector3d(ax, ay, az),
+            new Vector3d(bx, by, bz),
+            new Vector3d(cx, cy, cz));
+        var expected = new[]
+        {
+            ax, ay, az,
+            bx, by, bz,
+            cx, cy, cz
+        };
+        
+        // When
+        var actual = sut.ToArray();
+        
+        // Then
+        Assert.Equal(expected, actual);
+    }
 }
