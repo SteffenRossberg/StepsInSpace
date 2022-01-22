@@ -2,7 +2,7 @@ using StepsInSpace.Core.Abstractions.States;
 
 namespace StepsInSpace.Core.States;
 
-public class EmptyState : IState
+public class EmptyState : IEmptyState
 {
     public void Load()
     {
