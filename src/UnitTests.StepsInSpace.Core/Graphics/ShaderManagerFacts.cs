@@ -1,7 +1,9 @@
 using System;
+using Microsoft.Extensions.Logging;
 using Moq;
 using OpenTK.Graphics.OpenGL;
 using StepsInSpace.Core.Abstractions.Graphics;
+using StepsInSpace.Core.Abstractions.Logging;
 using StepsInSpace.Core.Abstractions.Resources;
 using StepsInSpace.Core.Graphics;
 using Xunit;
@@ -10,6 +12,7 @@ namespace UnitTests.StepsInSpace.Core.Graphics;
 
 public class ShaderManagerFacts
 {
+    private readonly Mock<ILogger<ShaderManager>> _loggerMock;
     private readonly Mock<IGlContext> _glContextMock;
     private readonly Mock<IResourceManager> _resourceManagerMock;
     private readonly Func<ShaderManager> _createShaderManager;
@@ -18,9 +21,11 @@ public class ShaderManagerFacts
     {
         _glContextMock = new Mock<IGlContext>();
         _resourceManagerMock = new Mock<IResourceManager>();
+        _loggerMock = new Mock<ILogger<ShaderManager>>();
         
         _createShaderManager = 
             () => new ShaderManager(
+                _loggerMock.Object,
                 _glContextMock.Object,
                 _resourceManagerMock.Object);
     }
@@ -143,4 +148,95 @@ public class ShaderManagerFacts
         Assert.Equal(expectedShaderId, actualShaderId);
     }
 
+    [Fact]
+    public void Gets_program_from_shaders()
+    {
+        // Given
+        var sut = _createShaderManager();
+        
+        var vertexShader = "vertex.glsl";
+        var vertexShaderLines = new[] {"int main() { return; }"};
+        _resourceManagerMock
+            .Setup(manager => manager.GetTextLines(vertexShader))
+            .Returns(vertexShaderLines);
+        _glContextMock
+            .Setup(context => context.CreateShader(ShaderType.VertexShader))
+            .Returns(2);
+        _glContextMock
+            .Setup(context => context.GetShader(2, ShaderParameter.CompileStatus))
+            .Returns(1);
+        
+        var fragmentShader = "fragment.glsl";
+        var fragmentShaderLines = new[] {"int main() { return; }"};
+        _resourceManagerMock
+            .Setup(manager => manager.GetTextLines(fragmentShader))
+            .Returns(fragmentShaderLines);
+        _glContextMock
+            .Setup(context => context.CreateShader(ShaderType.FragmentShader))
+            .Returns(3);
+        _glContextMock
+            .Setup(context => context.GetShader(3, ShaderParameter.CompileStatus))
+            .Returns(1);
+        
+        var expectedProgramId = 3;
+        _glContextMock
+            .Setup(context => context.CreateProgram())
+            .Returns(expectedProgramId);
+        _glContextMock
+            .Setup(context => context.GetProgramInfoLog(expectedProgramId))
+            .Returns("success");
+
+        var expectedVertexShaderId = sut.GetCompiledShader(vertexShader, ShaderType.VertexShader);
+        var expectedFragmentShaderId = sut.GetCompiledShader(fragmentShader, ShaderType.FragmentShader);
+        
+        sut.GetProgram(expectedVertexShaderId, expectedFragmentShaderId);
+        
+        // When
+        var actualProgramId = sut.GetProgram(expectedVertexShaderId, expectedFragmentShaderId);
+        
+        // Then
+        Assert.Equal(expectedProgramId, actualProgramId);
+        _glContextMock.Verify(context => context.AttachShader(expectedProgramId, expectedVertexShaderId), Times.Once);
+        _glContextMock.Verify(context => context.AttachShader(expectedProgramId, expectedFragmentShaderId), Times.Once);
+        _glContextMock.Verify(context => context.LinkProgram(expectedProgramId), Times.Once);
+        _glContextMock.Verify(context => context.GetProgramInfoLog(expectedProgramId), Times.Once);
+        _loggerMock.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Information,
+                    Information.ProgramInfoLog,
+                    It.IsAny<It.IsAnyType>(),
+                    null,
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+            Times.Once);
+    }
+    
+    [Fact]
+    public void Logs_error_if_shader_id_does_not_exists()
+    {
+        // Given
+        var sut = _createShaderManager();
+        const int notExistingShaderId = int.MaxValue;
+        const int programId = 5;
+        _glContextMock
+            .Setup(context => context.CreateProgram())
+            .Returns(programId);
+        
+        // When
+        Assert.Throws<InvalidOperationException>(() => sut.GetProgram(notExistingShaderId));
+        
+        // Then
+        _glContextMock.Verify(context => context.AttachShader(programId, notExistingShaderId), Times.Never);
+        _glContextMock.Verify(context => context.LinkProgram(programId), Times.Never);
+        _glContextMock.Verify(context => context.GetProgramInfoLog(programId), Times.Never);
+        _loggerMock.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Error,
+                    Error.ShaderIdIsNotRegistered,
+                    It.IsAny<It.IsAnyType>(),
+                    It.IsAny<InvalidOperationException>(),
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+            Times.Once);
+    }
 }
