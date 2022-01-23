@@ -31,20 +31,24 @@ public class ResourceManagerFacts
         var file = "assets/logo.png";
         var logoData = new byte[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         var expectedData = new byte[] {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        const int expectedHeight = 1;
+        const int expectedWidth = 10;
         _fileSystemProviderMock
             .Setup(provider => provider.ReadFile(file))
             .Returns(() => logoData);
         _bitmapExtractorMock
             .Setup(extractor => extractor.ExtractPixelData(
                 It.Is<byte[]>(data => logoData.SequenceEqual(data))))
-            .Returns(() => expectedData);
+            .Returns(() => (expectedWidth, expectedHeight, expectedData));
         var sut = _createResourceManager();
         
         // When
         var actualData = sut.GetTextureData(file);
         
         // Then
-        Assert.Equal(expectedData, actualData);
+        Assert.Equal(expectedData, actualData.PixelData);
+        Assert.Equal(expectedWidth, actualData.Width);
+        Assert.Equal(expectedHeight, actualData.Height);
     }
     
     [Fact]

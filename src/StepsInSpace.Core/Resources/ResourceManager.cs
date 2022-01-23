@@ -16,7 +16,7 @@ public class ResourceManager : IResourceManager
         _encoding = new UTF8Encoding(false, true);
     }
     
-    public byte[] GetTextureData(string file)
+    public (int Width, int Height, byte[] PixelData) GetTextureData(string file)
     {
         var raw = _fileSystemProvider.ReadFile(file);
         var extracted = _bitmapExtractor.ExtractPixelData(raw);

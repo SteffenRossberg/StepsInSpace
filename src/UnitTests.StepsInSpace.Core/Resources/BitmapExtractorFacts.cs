@@ -16,21 +16,23 @@ public class BitmapExtractorFacts
     }
     
     [Fact]
-    public void ExtractsBitmapData()
+    public void Extracts_bitmap_data()
     {
         // Given
         var sut = _createBitmapExtractor();
         var data = File.ReadAllBytes("./assets/logo.png");
-        byte[] expected;
+        SKBitmap expected;
         using (var stream = new MemoryStream(data))
         {
-            expected = SKBitmap.FromImage(SKImage.FromEncodedData(stream)).Bytes;
+            expected = SKBitmap.FromImage(SKImage.FromEncodedData(stream));
         }
         
         // When
         var actual = sut.ExtractPixelData(File.ReadAllBytes("./assets/logo.png"));
 
         // Then
-        Assert.Equal(expected, actual);
+        Assert.Equal(expected.Bytes, actual.PixelData);
+        Assert.Equal(expected.Width, actual.Width);
+        Assert.Equal(expected.Height, actual.Height);
     }
 }
