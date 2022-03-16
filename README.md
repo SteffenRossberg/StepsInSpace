@@ -19,4 +19,4 @@ Finally, it should end in a simple 3D driving simulation with a track editor lik
 
 ## Test
 1. Go to repositories ```./src``` folder in your favorite shell
-2. Run ```dotnet test StepsInSpace.sln``` to all tests of solution
+2. Run ```dotnet test StepsInSpace.sln``` to execute all tests of solution
